@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="Maple Poet">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Maple Poet">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="1. Preliminaries2. Introduction and overall picture2.1) Networking TechnologiesModern Networking Ecosystem  Users &amp; Services Providers Quality of Service: Measurable traffic characteristics Qualit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Software Defined Network">
+<meta property="og:url" content="https://maplepoet.github.io/hexo/2021/08/17/Software-Defined-Network/index.html">
+<meta property="og:site_name" content="枳暮">
+<meta property="og:description" content="1. Preliminaries2. Introduction and overall picture2.1) Networking TechnologiesModern Networking Ecosystem  Users &amp; Services Providers Quality of Service: Measurable traffic characteristics Qualit">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-08-17T09:08:52.000Z">
+<meta property="article:modified_time" content="2021-08-17T12:11:40.689Z">
+<meta property="article:author" content="Maple Poet">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/hexo/assets/favicon.ico">
+    
+    <title>Software Defined Network · Maplepoet&#39;s Blog</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/hexo/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/hexo/css/style.css?v=202107" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/hexo/css/dark.css?v=202107" as="style">
+    <link rel="stylesheet" href="/hexo/css/mobile.css?v=202107" media="(max-width: 980px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/hexo/scripts/main.js?v=202107" as="script">
+    <link rel="preload" href="/hexo/scripts/dark.js?v=202107" as="script">
+    <link rel="preload" href="/hexo/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/js/all.min.js" data-auto-replace-svg="nest"></script>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/hexo/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/hexo/>Maplepoet's Blog.</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/hexo/">Maplepoet&#39;s Blog.</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">Software Defined Network</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- dark mode -->
+        <script src="/hexo/scripts/dark.js"></script>
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/hexo/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                Software Defined Network
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">3k</span>阅读时长: <span class="post-count reading-time">18 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2021/08/17</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/hexo/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+        
+            <img class="loading" src="/hexo/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <h3 id="1-Preliminaries"><a href="#1-Preliminaries" class="headerlink" title="1. Preliminaries"></a>1. Preliminaries</h3><h3 id="2-Introduction-and-overall-picture"><a href="#2-Introduction-and-overall-picture" class="headerlink" title="2. Introduction and overall picture"></a>2. Introduction and overall picture</h3><h4 id="2-1-Networking-Technologies"><a href="#2-1-Networking-Technologies" class="headerlink" title="2.1) Networking Technologies"></a>2.1) Networking Technologies</h4><p>Modern Networking Ecosystem</p>
+<ol>
+<li>Users &amp; Services Providers</li>
+<li>Quality of Service: Measurable traffic characteristics</li>
+<li>Quality of Experience: Subjective measures that may depend on traffic characteristics</li>
+<li>subject to network provider and network access facilities</li>
+</ol>
+<p>IP backbone: Provide connectivity to external networks and users</p>
+<p>Edge Router/Aggregation Routers: At the periphery of an IP backbone</p>
+<ul>
+<li>Example: WAN with MPLS、Ethernet LAN…</li>
+</ul>
+<p><strong>Network</strong> Layout</p>
+<p>​    Three tier-hierarchy: Access Network、Distribution Network、Core Network</p>
+<p>​    Task: Local devices can access the network; interconnects multiple access networks; Aggregate traffic to the core network; </p>
+<p>Interconnection of geographically dispersed distribution networks.</p>
+<p><strong>Intermediate Systems(IS): routers | Switches</strong></p>
+<ol>
+<li>Routing: A successive exchange of connectivity information between routers.</li>
+<li>Forwarding: A switch or router-local process which forwards packets towards the destination using the information given in the local routing table.</li>
+<li>Queueing/ Buffering: Policies to discard/prioritize packets.</li>
+</ol>
+<p><strong>Problems</strong> of traditional networking infrastructure:</p>
+<ul>
+<li>Limited Flexibility</li>
+<li>Increasing Switch/Router complexity</li>
+<li>Separation of network and application</li>
+</ul>
+<p><strong>Broadband Network Gateway (BNG)</strong> 宽带网络业务网关</p>
+<p>​    Point-to-point over Ethernet(PPPoE) between customer and BNG; Authentication and Authorization; Rate Limiting and Traffic Shaping; Packet Forwarding; Accounting; One BNG handles many thousands of customers.</p>
+<p>​    Problems: Very specialized key functionality: Power hungry and costly</p>
+<p>​    Idea: Shape the network, determine routes of packets</p>
+<p>​        Increase resource usage and performance; Improve Predictability of performance; Benefit from network operations</p>
+<p>​        Publish/Subscribe, reduces number of msg; faster filtering in hardware; shorter paths</p>
+<h4 id="2-2-Internet-Architecture"><a href="#2-2-Internet-Architecture" class="headerlink" title="2.2) Internet Architecture"></a>2.2) Internet Architecture</h4><h4 id="2-3-Networking-Elements"><a href="#2-3-Networking-Elements" class="headerlink" title="2,3) Networking Elements"></a>2,3) Networking Elements</h4><h4 id="2-4-A-modern-networking-perspective"><a href="#2-4-A-modern-networking-perspective" class="headerlink" title="2.4) A modern networking perspective"></a>2.4) A modern networking perspective</h4><p><strong>SDN</strong>, a new network architecture and paradigm</p>
+<p> that’s makes it easier to program networks. with the core idea that software remotely controls network hardware.<br> Benefits, leverages increased flexibility</p>
+<ul>
+<li>easy modification of the network control logic</li>
+<li>api to program the network</li>
+<li>high-level programming languages</li>
+<li>reduced switch complexity</li>
+<li>integrated system: application &amp; network</li>
+<li>reduce the complexity of implementing control logic</li>
+</ul>
+<p> <strong>Network OS(NOS)</strong>: distributed system that creates a consistent, up-to-date network view</p>
+<p>​     get state information from forwarding elements</p>
+<p>​     give control directives to forwarding elements</p>
+<p> <strong>OpenFlow</strong>: remotely controlling the forwarding table of a switch or router</p>
+<p> <strong>Architecture: Control Plane &amp; Data Plane</strong></p>
+<p>​     <u>Control Plane</u>: Defines routes, manages network graph</p>
+<p>​         computes the forwarding rules for the Data Plane and installs them in the Data Plane. A new computation can be triggered by an event.</p>
+<ul>
+<li><p><strong>Fast Path</strong>: the Data Plane typically has a very high throughput and is realized by special Chips.</p>
+</li>
+<li><p><strong>Slow Path</strong>: The Control Plane and the forwarding of packets to it is much slower. It is only used to install new flows once and to update them. </p>
+</li>
+</ul>
+<p>​     <u>Data Plane</u>: Forwarding of packets</p>
+<p>​         a packet enters a switch/route and be forwarded to an outgoing port of the device.</p>
+<ul>
+<li><p><strong>Match</strong>: Based on fields of a packet a table lookup can be performed.</p>
+</li>
+<li><p><strong>Action</strong>: A action is performed in consequence of a match.<br>​         set_egress_port</p>
+</li>
+</ul>
+<h3 id="3-Foundations-of-software-defined-networking-SDN"><a href="#3-Foundations-of-software-defined-networking-SDN" class="headerlink" title="3. Foundations of software-defined networking(SDN)"></a>3. Foundations of software-defined networking(SDN)</h3><p><strong>Flow-based forwarding</strong></p>
+<p>​    any information of a packet that identifies a communication relation</p>
+<p>​    fine-grained forwarding of selected flows or coarse-grained aggregation</p>
+<p><strong>Distributed Routing vs. Logically Centralized Routing</strong></p>
+<p>​    Distributed Routing</p>
+<p>​        need time to converge to optimum \rightarrow lower resource utilization; Complex</p>
+<p>​    Logically Centralized Routing</p>
+<p>​        Greatly simplifies implementation of control logic; global view can increase performance of control; Faster Convergence $\rightarrow$ higher resource utilization</p>
+<p>​        Physical distribution ensures high availability and scalability</p>
+<p>​        makes implementation of control logic simpler and controller hard.</p>
+<h5 id="Components"><a href="#Components" class="headerlink" title="Components"></a><strong>Components</strong></h5><h6 id="Switches-Routers"><a href="#Switches-Routers" class="headerlink" title="Switches/Routers"></a>Switches/Routers</h6><ul>
+<li><p>​       implement data plane: packet forwarding</p>
+</li>
+<li><p>​        Typically multi-layer switches, forwarding based on layer 2-4 headers.</p>
+</li>
+<li><p>​        Hardware Switches: Fast matching, Ternary Content-addressable Memory (TCAM)</p>
+</li>
+<li><p>​        Software Switches: Connect multiple virtual machines to physical interface of host</p>
+</li>
+<li><p>​        Hybrid Switches, SDN &amp; standard L2/L3 forwarding</p>
+</li>
+</ul>
+<h6 id="SDN-Controller"><a href="#SDN-Controller" class="headerlink" title="SDN Controller"></a>SDN Controller</h6><ul>
+<li><p>​        implement control plane</p>
+</li>
+<li><p>​        implement southbound interface to switches: Configuration of forwarding tables; Injecting Packets; Events from switch; Collection of traffic statistics; Discovery of topology</p>
+</li>
+<li><p>​        interfaces with control logic via northbound interface</p>
+</li>
+</ul>
+<h6 id="Control-Logic"><a href="#Control-Logic" class="headerlink" title="Control Logic"></a>Control Logic</h6><p>​        routes of flows: <em>Proactive and reactive routing</em></p>
+<p>Distribution, physically distributed; logically centralization (transparent to control logic)</p>
+<ul>
+<li>Replication, OpenFlow standard allows for connections from switch to multiple controllers</li>
+<li>Partitioning, support large-scale deployment, raises issues similar to P2P; knowledge about neigborhood; Coordination and consistency</li>
+<li>Goal: deal with failures, increase scalability</li>
+</ul>
+<h4 id="3-1-Southbound-Interface-OpenFlow"><a href="#3-1-Southbound-Interface-OpenFlow" class="headerlink" title="3.1) Southbound Interface (OpenFlow)"></a>3.1) Southbound Interface (OpenFlow)</h4><p>This is the interface between the SDN controller and the physical network devices. The OpenFlow protocol is an instantiation of a southbound API. It is the protocol that is used for the configuration of the network devices as well as the signaling between the controller and the network devices. (背)</p>
+<p><strong>Functionality</strong>: Modification of Flow tables; inject packets; Events for receiving packets(Reactive routing); Querying traffic statistics(Counters)</p>
+<h5 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a><strong>Architecture</strong></h5><p>​    Flow Tables &amp; Flow Entries, tables consist of a list of flow entries</p>
+<p>​        Flow Entry: Match Field, Priority, Counters, Instructions, Timeouts</p>
+<p>​            Match Fields: 10 tuples, ingress port, Ether src/dst, VLAN Id, VLAN type, IP src/dst, ip proto(6=TCP,17=UDP,1=ICMP), TCP/UDP src/dst port</p>
+<p>​            Wildcard Matching, hardware switches(fast matching), 2 types of CAM</p>
+<p>​                1. Binary CAM, good for exact match</p>
+<p>​                2. Ternary CAM, implementation of longest prefix match on IP addresses</p>
+<p>​                缺点: Consumes significant energy, silicon space.</p>
+<p>​    Table-Miss Flow entry(dynamic routing), lowest priority, matches all packets; Drop(OF1.3+) or Send to controller</p>
+<p>​    <strong>Actions</strong></p>
+<ol>
+<li><p>output, output packet on the specified port</p>
+<ul>
+<li>ALL: Forwards the packet to all interfaces with exception of the incoming interface. Forwarding loops can occur and packets might circulate forever.</li>
+<li>Flood: Forwards the packet to all output ports which belong to a minimum spanning tree (computed previously). By that, endless packet circulation can be avoided.</li>
+</ul>
+</li>
+<li><p>TTL modifications, decrement TTL, copy TTL outwards/inwards</p>
+</li>
+<li><p>Push and Pop tags, add/remove VLAN/MPLS/PBB tags to/from the packet</p>
+</li>
+<li><p>Set header fields</p>
+</li>
+<li><p>Group actions: Multicast</p>
+</li>
+<li><p>order of execution of actions</p>
+</li>
+</ol>
+<p>​    <strong>Duplicate</strong></p>
+<p>​        Instructions, Action application, action list with multiple packet_out actions.</p>
+<p>​            Write actions; go to table with given id; apply specific actions immediately; clear action set; meter id</p>
+<p>​            Pro: Action application, action list with multiple packet_out actions.</p>
+<p>​            Con: Number of allowed packet_out actions per action list is not known to the controller. For updating a duplication rule, the flow rule has to be modified.</p>
+<p>​        Group Table, group type all</p>
+<p>​            Pro: Created exactly for this purpose, fine grained control over the duplication process through group buckets, can be updated without modifying flow tables.</p>
+<p>​        packet_out to flood port </p>
+<p>​            No control, can only be used for a very specific use case: if a packet should be sent out to all ports.</p>
+<h5 id="Proactive-vs-Reactive-Routing"><a href="#Proactive-vs-Reactive-Routing" class="headerlink" title="Proactive vs. Reactive Routing"></a><strong>Proactive vs. Reactive Routing</strong></h5><ol>
+<li><p>Proactive, before the flow starts, controller proactively pushes flow table entries onto switches</p>
+<ul>
+<li>pro: reduce controller load</li>
+<li>con: occupy space in flow table of switch</li>
+</ul>
+</li>
+<li><p>Reactive, as soon as the flow starts, switch receives a packet without matching flow table entry, control logic calculate route, controller installs flow table entries along path</p>
+<ul>
+<li>Pro: saves flow table space</li>
+<li>con: Puts load onto controller and control network</li>
+</ul>
+</li>
+</ol>
+<p>​    Required Information(dynamic)</p>
+<p>​        Network Topology: switches and hosts, links btw switches/hosts and switches, bandwidth of links</p>
+<p>​            Controller implements standard protocols: LLDP, ARP handling for host discovery</p>
+<p>​            Controller exposes discovered information to control logic</p>
+<p>​        Traffic Statistics: # of packets on bytes, # of dropped packets, receive/transmit errors, per flow, link/port, group<br>​            Flow, Port, Table, Queue, Group, Meter</p>
+<p>​        Counters</p>
+<h4 id="3-2-SDN-Controller"><a href="#3-2-SDN-Controller" class="headerlink" title="3.2) SDN Controller"></a>3.2) SDN Controller</h4><p><strong>Northbound</strong>(Program and API), <strong>Southbound</strong>(Interact with Data Plane), <strong>East/West</strong>(other controllers)</p>
+<p>Issues: Routing; Notification manager; Security mechanisms; Topology manager; Statistics manager; Device manager</p>
+<p>Network Operating system(NOS), provides essential services, common application programming interfaces, abstraction of lower layer elements to developers</p>
+<p>​    Pro: The network topology does not need to be discovered (as required for a distributed implementation) before focusing on the actual implementation of the policies. Using SDN with a NOS, the topology information is already available from the NOS and policies can directly be applied based on this information.</p>
+<p>High-Level Architecture of SDN</p>
+<p>​    1. Application support, API for SDN applications, access network information and program application-specific network behavior</p>
+<p>​    2. Orchestration, automated control and management of resources; coordination of application requests; topology</p>
+<p>​    3. Abstraction, management; capabilities; independent of underlying infrastructure</p>
+<h5 id="Example"><a href="#Example" class="headerlink" title="Example:"></a>Example:</h5><h6 id="NOX"><a href="#NOX" class="headerlink" title="NOX"></a>NOX</h6><ul>
+<li>Granularity： Scalability vs. Flexibility</li>
+<li>Scalability: different time scales; consistent network view</li>
+<li>Event driven update of control logic</li>
+<li>example: Policy lookup</li>
+<li>Not solve: Reliability and robustness, Generality</li>
+</ul>
+<h6 id="ONIX-closed-source"><a href="#ONIX-closed-source" class="headerlink" title="ONIX(closed source)"></a>ONIX(closed source)</h6><p>​        Goals: Generality, Scalability, Reliability, simplicity, Performance</p>
+<p>​        scalability, flexible state distribution mechanisms; flexible scaling and reliability mechanisms</p>
+<p>​            Workload Balancing</p>
+<p>​            Partitioning of Flow Space</p>
+<p>​            different Consistency models</p>
+<p>​                Strong Consistency: system with replication exhibits identical behavior to system without replication</p>
+<p>​                    算法: Consensus、Transactional Processing</p>
+<p>​                    Consensus, a key mechanism for strong consistency</p>
+<p>​                        Validity、Agreement、Termination、Integrity</p>
+<p>​                        Process order by rank</p>
+<p>​                        Uniform consensus</p>
+<p>​                Eventual Consistency: All replicas will eventually converge into a mutually consistent state. read operation return items that result from valid write operations.</p>
+<p>​                    算法: Gossiping</p>
+<h6 id="OpenDaylight"><a href="#OpenDaylight" class="headerlink" title="OpenDaylight"></a>OpenDaylight</h6><p>​    BGP with OpenFlow, exchange with AS1 and AS3: reachability, flow update, capability</p>
+<p><strong>East/Westbound Interface</strong></p>
+<p>​    This is the interface between different controllers. Just as the north-bound API, currently, the east-/westbound is more like an abstract concept, with many different possibilities to implement it. The idea is that this interface is used, e.g., for inter-domain coordination, route exchanges, etc. (背)</p>
+<h4 id="3-3-Northbound-Interface"><a href="#3-3-Northbound-Interface" class="headerlink" title="3.3) Northbound Interface"></a>3.3) Northbound Interface</h4><p>This is the interface between the controller and any type of network application running on top of it. This interface is very hard to define in a precise manner as any kind of network applications should be supported. Therefore, for now, the northbound interface is more of a high-level concept and not yet well-defined. （背）</p>
+<h5 id="REST-resource-oriented"><a href="#REST-resource-oriented" class="headerlink" title="REST (resource-oriented)"></a>REST (resource-oriented)</h5><ul>
+<li><p>​    Con: event not supported, HTTP based on request/response paradigm, restricted to proactive routing.</p>
+</li>
+<li><p>​    Unique identifiers (URI, uniform resource Identifier), C/S architecture(server-&gt;manage resource; client-&gt;manipulate resource)</p>
+</li>
+<li><p>​    Get, Post, Put, Delete, Head, Options; stateless protocol between client and server</p>
+</li>
+<li><p>​    example: OpenDaylight、Ryu </p>
+</li>
+</ul>
+<h5 id="Java-OSGi-Interface-of-OpenDaylight-Full-power-of-OpenFlow"><a href="#Java-OSGi-Interface-of-OpenDaylight-Full-power-of-OpenFlow" class="headerlink" title="Java/OSGi Interface of OpenDaylight, Full power of OpenFlow"></a>Java/OSGi Interface of OpenDaylight, Full power of OpenFlow</h5><ul>
+<li><p>​    event interface(callback functions), service for sending packets, both reactive&amp;proactive routing</p>
+</li>
+<li><p>​    OSGi(开放服务网关计划Open Services Gateway Initiative), allows for add&amp;remove at runtime; no restart of SDN controller</p>
+<ul>
+<li>Service: Data Packet Service; Data Packet Listener; Flow Programmer Service; Switch Manager</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-4-SDN-Abstractions"><a href="#3-4-SDN-Abstractions" class="headerlink" title="3.4) SDN Abstractions"></a>3.4) SDN Abstractions</h4><p>An abstraction layer is a mechanism that translates a high-level request into the low-level commands required to perform the request</p>
+<p>​    Shields the implementation details of a lower level of abstraction from software at a higher level</p>
+<p>​    Represents the basic properties or characteristics of network entities in such a way network programs can focus on the desired functionality without having to program the detailed actions</p>
+<p><strong>Three Basic Network Interfaces</strong>:</p>
+<p>​    Forwarding, shield higher layers from forwarding</p>
+<p>​    Distribution, shield higher layers from state dissemination/collection</p>
+<p>​    Specification, shield control program from details of physical network</p>
+<p>Example of Abstractions</p>
+<p>​    Network</p>
+<p>​        Single network view, authentication with respect to a network. consistent model provides # of connected devices.</p>
+<p>​        Full network view, exhibits # of connected devices + # of switching elements + topology information</p>
+<p>​    Pipeline, automatically installed in the network at multiple switching devices</p>
+<h5 id="SDN-Languages"><a href="#SDN-Languages" class="headerlink" title="SDN Languages"></a><strong>SDN Languages</strong></h5><p>​    $\star$ <strong>Frenetic/Pyretic Design</strong> (Key concept: Modularity) </p>
+<p>​        Modularity: Slicing enables different apps to work on different parts of the network without influencing each other<br>​        Types of Composition: Sequential; Parallel</p>
+<p>​        Packets: </p>
+<p>​        Policy: flood, drop. </p>
+<p>​            Dynamic: sequence of static policies, important to adapt the network</p>
+<p>​            Static: snapchat of a network’s global forwarding behavior;</p>
+<p>​                Actions: drop, passthrough, fwd(port), flood, push/pop/move</p>
+<p>​                Predicate: all_packets,  no_packets, ingress, egress, match(h=v)</p>
+<p>​                Query Policies: packets(limit, [h]), counts(every,[h])</p>
+<p>​                Policies: Actions | Query| Predicate[Policies] | (C|C) | C &gt;&gt; C | if (P,C,C)</p>
+<p>​    $\star$ <strong>P4</strong>, an open source language allowing the specification of packet processing logic</p>
+<p>​        Goal: Reconfigurability, Protocol independence, target independence</p>
+<p>​        Basics: build on a protocol independent switch architecture, maps specification to physical resources.</p>
+<p>​        P4_14 (simple reference pipeline、easy to start、better support)</p>
+<p>​        P4_16(more general、allow special functions、more complex)</p>
+<p>​        <strong>Benefits:</strong> </p>
+<p>​            define suitable data plane behavior: flexible usage of header fields; flexible definition of actions</p>
+<p>​            Better usage of resources: limited capacity in TCAM</p>
+<p>​            Performance gains: Time packet in processing, energy/delay</p>
+<p>​            integrated and combined with existing NOS and SDN controller framworks</p>
+<p>​        <strong>Expressions</strong></p>
+<p>​            Header</p>
+<p>​            Control</p>
+<p>​                Table (包括 key、actions)</p>
+<p>​                Actions</p>
+<p>​                使用apply{ }</p>
+<p>​            在terminal使用match和action （Flow entry）来运行</p>
+<p>​                default, action=drop(); //example</p>
+<p>​                default, action = set_has_no_vlan();</p>
+<h5 id="SDN-Applications"><a href="#SDN-Applications" class="headerlink" title="SDN Applications"></a>SDN Applications</h5><p>Pyretic Applications:</p>
+<p>​    ARP responder、firewalls、Gateways、Load Balancers、Monitoring、Big Switch、Spanning Tree</p>
+<h3 id="4-Network-Function-Virtualization-NFV"><a href="#4-Network-Function-Virtualization-NFV" class="headerlink" title="4. Network Function Virtualization(NFV)"></a>4. Network Function Virtualization(NFV)</h3><h4 id="4-1-Architectural-Overview-NFV"><a href="#4-1-Architectural-Overview-NFV" class="headerlink" title="4.1) Architectural Overview NFV"></a>4.1) Architectural Overview NFV</h4><p>Goal: improved CAPEX、OPEX; Faster deployment; Flexible management</p>
+<p>Use Case from ETSI: VNFaaS; Mobile Core/IMS functionality, mobile base stations; Virtualized home environment; Virtualize content distribution networks</p>
+<p>Infrastructure (NFVI), support deployment and execution of VNF, Totality of the hardware and software components which build up the environment in which VNFs are deployed; leverage existing virtualization technology from computing.</p>
+<p>NFVI executes NFV, separate description necessary.</p>
+<p>Big Picture Architecture</p>
+<p>ETSI, European Telecommunication Standards Institute</p>
+<p>​    Compute Domain, computational and storage components, typically commodity off-the-shelf</p>
+<p>​    Hypervisor管理程序 Domain, provide an abstract machine to VNFs and management/orchestration functions</p>
+<p>​    Infrastructure Network Domain, provide logical connectivity between components of VNF, different VNFs and VNFs and their context.</p>
+<p>​        Infrastructure Network provide addressing scheme, routing capabilities and resource management</p>
+<p>​            Common Header; Address binding; Transparent encapsulation</p>
+<p>Problems:</p>
+<p>​    Model dependencies of many VNFs; Placement; Deployment; Scaling</p>
+<p>IETF(Internet Engineering Task Force): Service Function Chaining</p>
+<h4 id="4-2-Performance-of-NFs"><a href="#4-2-Performance-of-NFs" class="headerlink" title="4.2) Performance of NFs"></a>4.2) Performance of NFs</h4><p>VNFs are executed on standard hardware; Host environment builds on OperatingSystem/Hypervisor: Read packets from Network Interface Card (NIC)</p>
+<p>User Space: Network Function; Kernel Space: Packets Received</p>
+<p>Goal: Understand Efficiency of NetworkFunction, Limiting Factors</p>
+<p>Operating System Packet Processing</p>
+<p>​    Traditional Networking</p>
+<p>​        NIC (network  interface card) uses DMA to copy data into kernel buffer; interrupt when packets arrive; copy packet data from kernel space to user space; use system call to send data from user space</p>
+<p>​    User Space Packet Processing (allow user space apps to directly access packet data)</p>
+<p>​        NIC uses DMA to copy data into kernel user space buffer; interrupt use polling to find when packets arrive; copy packet data from kernel space to user space; use system regular function call to send data from user space</p>
+<p>DPDK(Data Plane Development Kit), high performance I/O library, poll more driver reads packets from NIC</p>
+<p>​    network Interrupt: NIC notifies OS about new packets, OS interrupts its current job to receive packet.<br>​        interrupt can arrive during critical sections; interrupts can be delivered to the wrong CPU core; pay context switch cost.<br>​        Pro: A job is only - and immediately - started if a packet arrives<br>​        Situation: Low Network Load; Few Processor cores;</p>
+<p>​    Polling: Driver asks frequently<br>​        Pro: Current jobs(i.e.packet modifications) are not interrupted upon a packet reception, and can be completed before the next job (packet) arrives.<br>​        Situation: High, constant network load</p>
+<p>​    Kernel-User Overhead<br>​        Reads packets into kernel memory; Stack pulls data out of packets; Data is copied into user space for application; Application uses system calls to interface with OS</p>
+<p>​    Kernel Bypass</p>
+<p>​        Kernel only sets up basic access to NIC; User-space driver tells NIC to DMA data directly into user-space memory<br>​        No extra copies; No in-kernel processing; No context switching</p>
+<p>​    CPU Core Affinity</p>
+<p>​    Paging Overhead</p>
+<p>​    Locks</p>
+<p>​        Thread synchronization is expensive: Tens of nanoseconds to take an uncontested lock; 10Gbps -&gt; 68ns per packet</p>
+<p>​        Producer/Consumer architecture: Gather packets from NIC (producer) and ask worker to process them (consumer)</p>
+<p>​        Lock-free communication: Ring-buffer based message queues</p>
+<p>​    Bulk Operations, DPDK helps batch requests into bulk operations</p>
+<p>​        PCIe bus uses messaging protocols for CPU to interact with devices (NICs)</p>
+<p>​    Limitations:</p>
+<p>​        Barebones准系统 I/O library, no protocol processing</p>
+<p>​        Focused on running a single NF, need to specially design NFs to be able to run multiple functions at once; NF monopolizes entire NIC port</p>
+<p>​        Extensive use of polling means high CPU usage</p>
+<p>​        No management layer (addressing, reliability, auto scaling, fault tolerance)</p>
+<p>Service Chaining (Chain together functionality to build more complex services), move packets through chain efficiently</p>
+<p>​    OpenNetVM</p>
+<p>​        Zero Copy I/O: DMA into shared memory, directly accessible to NFs.</p>
+<p>​        Architecture: DPDK, VNFs, Service Chains, NF manager, Shared Memory.</p>
+<p>Efficiency vs. Modularity</p>
+<p>​    VNFs must be modular and easy to compose, isolated processes; simple development, deployment and chaining</p>
+<p>​    Break abstractions when necessary, bypass OS and network stack to get raw packets. shared memory between processes for faster chains.</p>
+<p>​    Balance control across the hierarchy, similar SDN </p>
+<p><strong>Summary:</strong></p>
+<p>​     <strong>SDN: a centralized network control plane</strong></p>
+<p>​    <strong>NFV: efficient software data plane</strong></p>
+<p>​    <strong>DPDK: high performance user-space network I/O</strong></p>
+<p>​    <strong>OpenNetVM: service chaining and NF management</strong></p>
+<h4 id="4-3-Foundations-amp-Algorithms-for-NFV"><a href="#4-3-Foundations-amp-Algorithms-for-NFV" class="headerlink" title="4.3) Foundations &amp; Algorithms for NFV"></a>4.3) Foundations &amp; Algorithms for NFV</h4><p>Facility Location (reduce Round Trip Time)</p>
+<p>​    Uncapacitated、Global: GreedyFL</p>
+<p>​        Client connects if Budgets $\geq$ Connection cost and Facility is open</p>
+<p>​        Facility opens if Sum of Clients’ Contribution $\geq$ facility opening cost and Clients’ Contribution = max(0, budget-distance)</p>
+<p>​    Capacitated、Local: GreedyFL^L</p>
+<p>​    Multi-commodity:  different products have to be handled by the facilities</p>
+<p>Routing</p>
+<p>​    Routing problem: in a graph, find paths that minimize some cost metric</p>
+<p>​    Flow problem: move stream of data along a network from a source to a sink</p>
+<p>​    Splittable vs. unsplittable flows</p>
+<p>​    Single vs. Multi-commodity flows</p>
+<p>​        single: </p>
+<p>​        Multi-Commodity：</p>
+<p>Network Embedding</p>
+<p>​    Fixed Networks</p>
+<p>​    Malleable networks: Template embedding</p>
+<h3 id="5-Deep-Technical-Chapters"><a href="#5-Deep-Technical-Chapters" class="headerlink" title="5. Deep Technical Chapters"></a>5. Deep Technical Chapters</h3><p><strong>DTD</strong>: Data Plane Hardware Acceleration</p>
+<p>​    Flow(Rule) Matching</p>
+<p>​    Physical Memory Technologies</p>
+<p>​        DRAM, off-chip - close to CPU/ASIC</p>
+<p>​            tables * ns * lookups </p>
+<p>​            slow, PC/laptop memory</p>
+<p>​            1 transistor + 1 capacitor, require refresh</p>
+<p>​        SRAM, on-chip - integrated in switching ASIC</p>
+<p>​            fast, small, processor cache</p>
+<p>​            6 transistors, require no refresh, small capacity</p>
+<h5 id="Matching-Algo"><a href="#Matching-Algo" class="headerlink" title="Matching Algo."></a><strong>Matching Algo.</strong></h5><h6 id="Problems"><a href="#Problems" class="headerlink" title="Problems"></a><em>Problems</em></h6><p>​            exact (Cuckoo hashing, TRIE)</p>
+<p>​            longest prefix match (Cuckoo hashing, TRIE, TCAM)</p>
+<p>​            ternary (TCAM)</p>
+<p>​            range (between)</p>
+<h6 id="Lookup-Approach"><a href="#Lookup-Approach" class="headerlink" title="Lookup Approach"></a><em>Lookup Approach</em></h6><p>​            Linear Search O(n)</p>
+<p>​            Simple Prefix Tree, TRIE O(log(n))</p>
+<p>​                Compact Prefix Tree</p>
+<p>​            Hashing based mechanism</p>
+<p>​                Multi-way Cuckoo Hashing</p>
+<p>​            CAM 最差O(n) 最好O(1)</p>
+<p>​                <strong>TCAM</strong>, search all table entries in parallel, TCAM is SRAM-cell based but no SRAM memory</p>
+<p>​                    Lookup(priority is important); IP lpm match (prefix address part as matcher; prefix length as priority)</p>
+<p>​                <strong>Comparison:</strong></p>
+<p>​                OpenFlow increases the flexibility of TCAM usage</p>
+<p>​                    if TCAM is full, add OpenFlow matcher slow path; refuse additional rules.</p>
+<p>​    Existing OpenFlow Hardware</p>
+<h3 id="6-Guest-Lectures"><a href="#6-Guest-Lectures" class="headerlink" title="6. Guest Lectures"></a>6. Guest Lectures</h3><p>Attach<br> OP1.0: 12 fields(Ethernet, TCP/IPv4)<br> OP1.1: 15 fields(MPLS, inter-table metadata)<br> OP1.2: 36 fields(ARP, ICMP, IPv6, etc)<br> OP1.3: 40 fields<br> OP1.4: 41 fields</p>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="https://maplepoet.github.io/hexo">Maple Poet</a>
+            <p>原文链接：<a href="https://maplepoet.github.io/hexo/2021/08/17/Software-Defined-Network/">https://maplepoet.github.io/hexo/2021/08/17/Software-Defined-Network/</a>
+            <p>发表日期：<a href="https://maplepoet.github.io/hexo/2021/08/17/Software-Defined-Network/">August 17th 2021, 11:08:52 am</a>
+            <p>更新日期：<a href="https://maplepoet.github.io/hexo/2021/08/17/Software-Defined-Network/">August 17th 2021, 2:11:40 pm</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/hexo/2021/08/18/%E6%B8%85%E5%8D%95-08-18/" title="清单 08-18">
+                    <div class="nextTitle">清单 08-18</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/hexo/2021/08/08/0808/" title="808">
+                    <div class="prevTitle">808</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+     
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:790578580@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/maplepoet" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/hexo/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Preliminaries"><span class="toc-number">1.</span> <span class="toc-text">1. Preliminaries</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Introduction-and-overall-picture"><span class="toc-number">2.</span> <span class="toc-text">2. Introduction and overall picture</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-Networking-Technologies"><span class="toc-number">2.1.</span> <span class="toc-text">2.1) Networking Technologies</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-Internet-Architecture"><span class="toc-number">2.2.</span> <span class="toc-text">2.2) Internet Architecture</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-Networking-Elements"><span class="toc-number">2.3.</span> <span class="toc-text">2,3) Networking Elements</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-A-modern-networking-perspective"><span class="toc-number">2.4.</span> <span class="toc-text">2.4) A modern networking perspective</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Foundations-of-software-defined-networking-SDN"><span class="toc-number">3.</span> <span class="toc-text">3. Foundations of software-defined networking(SDN)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Components"><span class="toc-number">3.0.1.</span> <span class="toc-text">Components</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Switches-Routers"><span class="toc-number">3.0.1.1.</span> <span class="toc-text">Switches&#x2F;Routers</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#SDN-Controller"><span class="toc-number">3.0.1.2.</span> <span class="toc-text">SDN Controller</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Control-Logic"><span class="toc-number">3.0.1.3.</span> <span class="toc-text">Control Logic</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-Southbound-Interface-OpenFlow"><span class="toc-number">3.1.</span> <span class="toc-text">3.1) Southbound Interface (OpenFlow)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Architecture"><span class="toc-number">3.1.1.</span> <span class="toc-text">Architecture</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Proactive-vs-Reactive-Routing"><span class="toc-number">3.1.2.</span> <span class="toc-text">Proactive vs. Reactive Routing</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-SDN-Controller"><span class="toc-number">3.2.</span> <span class="toc-text">3.2) SDN Controller</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Example"><span class="toc-number">3.2.1.</span> <span class="toc-text">Example:</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#NOX"><span class="toc-number">3.2.1.1.</span> <span class="toc-text">NOX</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#ONIX-closed-source"><span class="toc-number">3.2.1.2.</span> <span class="toc-text">ONIX(closed source)</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#OpenDaylight"><span class="toc-number">3.2.1.3.</span> <span class="toc-text">OpenDaylight</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-Northbound-Interface"><span class="toc-number">3.3.</span> <span class="toc-text">3.3) Northbound Interface</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#REST-resource-oriented"><span class="toc-number">3.3.1.</span> <span class="toc-text">REST (resource-oriented)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Java-OSGi-Interface-of-OpenDaylight-Full-power-of-OpenFlow"><span class="toc-number">3.3.2.</span> <span class="toc-text">Java&#x2F;OSGi Interface of OpenDaylight, Full power of OpenFlow</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-SDN-Abstractions"><span class="toc-number">3.4.</span> <span class="toc-text">3.4) SDN Abstractions</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#SDN-Languages"><span class="toc-number">3.4.1.</span> <span class="toc-text">SDN Languages</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#SDN-Applications"><span class="toc-number">3.4.2.</span> <span class="toc-text">SDN Applications</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Network-Function-Virtualization-NFV"><span class="toc-number">4.</span> <span class="toc-text">4. Network Function Virtualization(NFV)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-Architectural-Overview-NFV"><span class="toc-number">4.1.</span> <span class="toc-text">4.1) Architectural Overview NFV</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-Performance-of-NFs"><span class="toc-number">4.2.</span> <span class="toc-text">4.2) Performance of NFs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-Foundations-amp-Algorithms-for-NFV"><span class="toc-number">4.3.</span> <span class="toc-text">4.3) Foundations &amp; Algorithms for NFV</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Deep-Technical-Chapters"><span class="toc-number">5.</span> <span class="toc-text">5. Deep Technical Chapters</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Matching-Algo"><span class="toc-number">5.0.1.</span> <span class="toc-text">Matching Algo.</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Problems"><span class="toc-number">5.0.1.1.</span> <span class="toc-text">Problems</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Lookup-Approach"><span class="toc-number">5.0.1.2.</span> <span class="toc-text">Lookup Approach</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-Guest-Lectures"><span class="toc-number">6.</span> <span class="toc-text">6. Guest Lectures</span></a></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 5
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/18</span>
+            <a class="archive-post-title" href="/hexo/2021/08/18/%E6%B8%85%E5%8D%95-08-18/">清单 08-18</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span>
+            <a class="archive-post-title" href="/hexo/2021/08/17/Software-Defined-Network/">Software Defined Network</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span>
+            <a class="archive-post-title" href="/hexo/2021/08/08/0808/">808</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/hexo/2021/08/04/hello-world/">Hello World</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/04</span>
+            <a class="archive-post-title" href="/hexo/2021/08/04/0804/">人称代词</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="Deutsch">
+                <span class="iconfont-archer">&#xe606;</span>
+                Deutsch
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMeta = {
+        root: "/hexo/",
+        author: "Maple Poet"
+    }
+</script>
+
+        <!-- main func -->
+        <script src="/hexo/scripts/main.js"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/hexo/scripts/share.js" async></script>    
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>
