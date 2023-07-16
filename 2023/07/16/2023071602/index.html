@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="枳暮">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="枳暮">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="By 苏童 香椿街上的三个青年，一场扑朔迷离的强奸风波，一个人的十年冤狱和三个人命运的罪与罚。 《黄雀记》全书分为三章：保润的春天、柳生的秋天、白小姐的夏天。作者通过三个不同当事人的视角，书写了这三个受侮辱与被损害的人的成长与碰撞。 十年后，年少时犯下的错，错的时间，命运的手，让这三个人兜兜转转还是纠缠在了一起。命运迫使他们发现，尽管物是人非斗转星移，他们依然不得不去面对过去的巨大伤痛。 过去的终">
+<meta property="og:type" content="article">
+<meta property="og:title" content="黄雀记">
+<meta property="og:url" content="https://maplepoet.github.io/hexo/2023/07/16/2023071602/index.html">
+<meta property="og:site_name" content="枳暮">
+<meta property="og:description" content="By 苏童 香椿街上的三个青年，一场扑朔迷离的强奸风波，一个人的十年冤狱和三个人命运的罪与罚。 《黄雀记》全书分为三章：保润的春天、柳生的秋天、白小姐的夏天。作者通过三个不同当事人的视角，书写了这三个受侮辱与被损害的人的成长与碰撞。 十年后，年少时犯下的错，错的时间，命运的手，让这三个人兜兜转转还是纠缠在了一起。命运迫使他们发现，尽管物是人非斗转星移，他们依然不得不去面对过去的巨大伤痛。 过去的终">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-07-16T09:09:00.000Z">
+<meta property="article:modified_time" content="2023-07-16T09:38:41.762Z">
+<meta property="article:author" content="枳暮">
+<meta property="article:tag" content="文学">
+<meta property="article:tag" content="书摘">
+<meta property="article:tag" content="苏童">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/hexo/assets/favicon.ico">
+    
+    <title>黄雀记 · 枳暮&#39;s Blog</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/hexo/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/hexo/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/hexo/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/hexo/css/dark.css">
+    <link rel="stylesheet" href="/hexo/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/hexo/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/hexo/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/hexo/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- Google tag (gtag.js) -->
+    
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/hexo/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/hexo/>枳暮's Blog.</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/hexo/">枳暮&#39;s Blog.</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">黄雀记</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+    
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/hexo/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                黄雀记
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="文学">文学</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="书摘">书摘</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="苏童">苏童</a>
+    
+</div>
+
+                
+                <!-- 文章字数统计 -->
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2023/07/16</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/hexo/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/hexo/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <p>By 苏童</p>
+<p><strong>香椿街</strong>上的三个青年，一场扑朔迷离的强奸风波，一个人的十年冤狱和三个人命运的罪与罚。</p>
+<p>《黄雀记》全书分为三章：保润的春天、柳生的秋天、白小姐的夏天。作者通过三个不同当事人的视角，书写了这三个受侮辱与被损害的人的成长与碰撞。</p>
+<p>十年后，年少时犯下的错，错的时间，命运的手，让这三个人兜兜转转还是纠缠在了一起。命运迫使他们发现，尽管物是人非斗转星移，他们依然不得不去面对过去的巨大伤痛。</p>
+<p>过去的终究不会过去，该还的终是要还。他们必须以自己的方式，清算当年留下的罪孽……</p>
+<span id="more"></span>
+
+<h3 id="Highlights"><a href="#Highlights" class="headerlink" title="Highlights"></a>Highlights</h3><ul>
+<li><p>拍照的日子是祖父的节日。</p>
+</li>
+<li><p>众所周知，香椿树街上根本没有什么香椿树，唯一的绿化便是冬青，工厂的大门口，街上的空地，房屋的墙根，到处可见高高低低的冬青，哪一棵冬青树下面埋着祖父的手电筒呢？这个关键的地点，祖父恰好记不清楚了。</p>
+</li>
+<li><p>保润相信，祖父疯了，祖父真的疯了。祖父的梦想在泥潭深处腐烂，发出它特有的腥气。</p>
+</li>
+<li><p>那是蛇的道路。蛇的道路充满祖先的叹息声，带着另一个时空的积怨，它被一片浅绿色的阴影引导着，消失在街道尽头。保润极目远眺，看清那片阴影其实是一把浅绿色的阳伞，那么晴朗的星期天的早晨，那么温暖的春天，不知是谁打着一把浅绿色的阳伞出门了。</p>
+</li>
+<li><p>但是，春天就是险象环生的季节，保润能够阻隔春天的树，却不能阻止春天的风，清新和煦的东南风一旦吹到祖父的脸上，保润又要小心了，这种风不仅带来远方海洋的潮气，风中也穿梭着另外一些祖先慈爱的幽魂，快，快一点吧，别在这里受苦了，快找到你的魂，回到我们的身边来吧。祖父破译了春风的信息，大多是女性祖先絮絮叨叨的召唤，充满了谅解与宽容。所以，祖父在春风中呜呜地哭泣，他对慈爱的女祖先倾诉自己的困境，同时抱怨孙儿的不孝，他说，保润不让我挖，不让我挖啊！你们的尸骨挖不出来，我的魂找不回来，怎么能回到你们身边来呢？</p>
+</li>
+<li><p>捆绑祖父是合理的，捆绑祖父是合法的，捆绑祖父也符合大多数群众的要求，无论是医院方面还是其他病人家属，对保润的举动都表示理解。</p>
+</li>
+<li><p>春天的祖父经常哭泣。祖父混浊的眼泪打动不了保润，他流下一缸的眼泪，也换不回一锹挖掘的权利。保润的使命是简单的，治理祖父的手，管好祖父的手，严禁挖掘。</p>
+</li>
+<li><p>春天的祖父是被缚的祖父。他的面容有点浮肿，双颊偶有蹊跷的红晕，眼睛里充满焦虑的光芒，因为失去了摆臂的动作，他走路的姿势显得僵硬，滑稽，像一只企鹅。</p>
+</li>
+<li><p>与祖父的癫狂相对应，春天的保润，更是不同凡响的保润。他专注于利用祖父的身体，搞革新搞试验，研究最完美的捆绑工艺。</p>
+</li>
+<li><p>如果评比，柳生家一定可以列入香椿树街最受尊敬的家庭，只可惜，柳生有个花痴姐姐柳娟，每到春天桃花盛开的时候，便会去北门城墙下的桃花林，做一件秘密的事情。这个秘密取悦了城北地带的街头少年，却严重玷污了自家的门楣。</p>
+</li>
+<li><p>用一种刺耳的噪音来宣传春天的美妙。春天其实不一定是美妙的。</p>
+</li>
+<li><p>他不清楚，那些少男少女是否在恋爱，只知道自己离恋爱还远，这地方并不属于他，他不过是一个闯入者，他不过是一个陪伴者罢了。</p>
+</li>
+<li><p>保润有点厌恶这个家。厌恶七十年代的家具，厌恶潮湿的墙泥斑驳的墙壁，厌恶昏暗的十五瓦白炽灯，甚至厌恶桌上的青边大碗。</p>
+</li>
+<li><p>一朵云从临街的小窗挤进阁楼，沿着多角形的天花板款款浮动，几乎触手可及。他认识那朵云。那朵云的面孔，是一张少女清新纯洁的面孔，带着促狭傲慢的微笑。他知道那朵云的名字。空气中弥漫着淡蓝色的雾气和栀子花香，那朵云降落下来，居然有两只脚，穿着一双浅绿色的旱冰鞋。他好奇地张开了双臂，但是他抱不住云，抱住的是一团虚无。</p>
+</li>
+<li><p>别人都轻易地攀上了巨毯，只有他上不去。</p>
+</li>
+<li><p>那是破碎的声音，确实有个什么气泡破碎了。梦遗使他听见了身体里的一条谜语，这谜语与魂灵有关，他以祖父的遭遇作为猜谜的途径，努力地想象谜底。</p>
+</li>
+<li><p>他的魂，是被黑夜弄丢了。不，他的魂，是被她弄丢了。</p>
+</li>
+<li><p>他提着兔笼在医院里疾走，那个粉红色的小塑料片不时地触及他的膝盖，它以塑料的名义，对一个陌生的膝盖诉说，诉说盲目而空洞的感情。我爱你。我爱你。我爱你。</p>
+</li>
+<li><p>他走到铁梯上，回头一望，心里突然注满了巨大的空虚，脑袋有点发晕。兔笼上那个粉红色的心形标牌，不知什么时候自动展开了，一道温柔的红光刺破了泵房的幽暗，对着他娓娓倾诉：我爱你。我爱你。我爱你。 　　我爱你。</p>
+</li>
+<li><p>她一来，他整整一个春天的焦灼消失了，她一来，他整整一个春天的等待也结束了。</p>
+</li>
+<li><p>笼子里腐烂的菜叶和黑色颗粒状的兔粪纷纷洒落在他身上，那个粉红色的塑料标牌晃荡着，染上了一抹鲜红的血迹。我爱你。我爱你。他</p>
+</li>
+<li><p>整整一个春天的思念，现在有了回报，整整一个春天的欲望，从黑暗到黑暗，好不容易找到最后的出路，居然还是这条绳索之路。</p>
+</li>
+<li><p>保润跑出水塔，外面明亮的阳光非常刺眼，风是冷的，但冷得柔软。</p>
+</li>
+<li><p>对面的树林里，桃花凋谢了一半，梨花正在盛开，还是春天，别人的春天鸟语花香，他的春天提前沉沦了。巨大的空虚长满犄角，一下一下地顶他的心。</p>
+</li>
+<li><p>他站在远处仰望水塔。红色的水塔上空覆盖着几朵稀薄的云彩，看不见罪恶的痕迹，听不见她的声音。只</p>
+</li>
+<li><p>还有他自己，春天一到，他的灵魂给身体出了很多谜语，他的身体不懂，他的身体给灵魂出了很多谜语，他的灵魂不懂。 　　他什么都不懂。</p>
+</li>
+<li><p>春天的一个下午，保润被铐着双手走过家门。</p>
+</li>
+<li><p>对于古典园林的外行来说，这园子已经够漂亮了，一条长廊连着一条长廊，一个天井套着一个天井，还有一片荷叶状的池塘，池塘边堆着太湖石假山，四周红红绿绿，风一吹，旧社会的桂花与竹子在摇曳，新社会的花草和蔬菜在摇曳，它们在一起，正好是历史在摇曳。</p>
+</li>
+<li><p>他小时候跟随祖父去过本地所有的古典园林，所以，在跨过无意园豪华宽敞的第一道铁门时，他猜想进去后要右拐，右拐后会遇见一个古典式的圆月门，门头上应该雕刻着别有洞天四个字。</p>
+</li>
+<li><p>看守带他穿过一条长长的走廊，青砖地上有一道稀薄的波纹状的阳光，它始终在他的脚尖前方波动，引导他往拘留所深处走，像一个神秘的幽灵，前来认领一个失散的亲人。</p>
+</li>
+<li><p>从香椿树街的东头到西侧，很多人认出了她，一颗恻隐之心被她的泪脸照得发烫，很多人过去拉扯她，想去劝慰她，可惜粟宝珍不领情，她的悲伤不容侵犯，她一边呜咽，一边还反问那些好心人，谁在哭？我哭了吗？有什么好哭的？</p>
+</li>
+<li><p>清晨或者夜晚，人们偶尔会在大街上遇见粟宝珍，她形容枯槁，眼神涣散，似乎接受了命运赋予的所有不幸，认输了。很多人同情她，说要评选天下最苦的女人，非粟宝珍莫属，想想都累死了，家里三个男人，一个犯人，一个病人，还有一个疯子，都要靠她一个妇道人家。粟宝珍的大苦大难，别人难以分担，也只能用言语关心一下。</p>
+</li>
+<li><p>她那个家还留有一缕人烟，但已经倾颓了一大半，摇摇欲坠了。</p>
+</li>
+<li><p>你的快乐是捡来的，不要骨头轻，夹着尾巴做人吧。你的自由是捡来的，不要骨头轻，夹着尾巴做人吧。你的全部幸福生活都是捡来的，不要骨头轻，你必须夹着尾巴做人。</p>
+</li>
+<li><p>人家又到屋后搬了一盆白兰花给她，说是老姐妹留给她的礼物。白兰花当时正开着，很香。她依稀记得自己说过最喜欢白兰花，说说而已，没想到老花匠夫妇记在了心里。</p>
+</li>
+<li><p>保润是一个梦魇，说来就来，不分白天黑夜。有一天早晨他骑车路过铁路桥，一列火车正巧轰隆隆地通过桥面，一团黑影从火车上飞落下来，掠过他的肩膀，挂在自行车杠子上。</p>
+</li>
+<li><p>老妇人边睡边哭，呼吸时鼻息浊重，犹如风箱，泪珠则以均匀的速度渗出眼眶，一滴一滴地淌落在面颊上，他盯着那道泪泉注视了一会儿，渐渐地觉得浑身不自在了，冤案？他嘟囔道，有什么稀奇的，这世界上的冤案太多了吧？</p>
+</li>
+<li><p>但是，从保润家派来了新的义务，这义务呈现篱笆的形状，一次许诺，某种道义，还有群众舆论，它们一齐将篱笆扎紧，柳生无法脱身了。</p>
+</li>
+<li><p>该凭吊的凭吊了，该安慰的安慰了，所有该做的事情都做好，剩下的，便是百无聊赖。</p>
+</li>
+<li><p>与祖父相处，其实是与保润的阴影相处，这样的偿还方式令人疲惫，但多少让他感到一丝心安，时间久了，他习惯了与保润的阴影共同生活，那阴影或浓或淡，俨然成了他生活不可缺少的色彩。</p>
+</li>
+<li><p>他迎接这个年轻女人，就像迎接一个悲伤而诡秘的黑夜来临。</p>
+</li>
+<li><p>无疑是命运安排的一次约会，他们的目光撞在一起，闪电不期而遇，伴随着一股隐秘的飓风，她头上的黑围巾不知怎么滑落下去，一张苍白而熟悉的面孔暴露在他的视线里，起先是傲慢，后来是惊恐。</p>
+</li>
+<li><p>记忆訇然一响，成为满地碎片，放射出令人惊悚的尖利的光芒。她的毛皮大衣，一共拖曳着十年的时光。</p>
+</li>
+<li><p>一连几天，他驾着面包车经过井亭医院的小树林，觉得车厢里的菜蔬猪肉都在慌乱地抖动，废弃的水塔里隐约响起了水的回流声，一页翻过去的历史，被风吹回了原处，让他辨认。</p>
+</li>
+<li><p>树枝分割的时空碎裂了。恍惚之后是惊悚，他忽然发现自己的生活充满了快乐的假相，而真相是连绵不绝的阴影，它像一座云雾中的群山，形状变幻莫测，排列的都是灾难的比喻。</p>
+</li>
+<li><p>岁月洗涤了某些触觉的记忆，她现在的美貌与性感，改写了他过去的罪恶，他的负罪感在虚幻中悄悄地变异，升华为某种荣耀，竟然夹杂了一丝甜蜜。</p>
+</li>
+<li><p>他们的过去是一杯腐茶，盛在同一只杯子里。必须小心杯盖。打开了杯盖，腐茶的秘密也就暴露了。不能打开。不能相认。不能说话。</p>
+</li>
+<li><p>时装店的霓虹灯光打在那片年久失修的屋顶上，他每次都注意到那棵桑树，一棵桑树，端端正正地长在保润家的屋顶上。不知是哪只鸟衔来的桑葚，在这片寂静的屋顶上找到了沃土，几年下来，桑树足有半人高了，竟然长得枝叶茂盛。</p>
+</li>
+<li><p>是香椿树街有史以来最安静的丧事，没有人哭丧，灵床躲躲闪闪地停在幽暗之处。</p>
+</li>
+<li><p>她一进去就有惊人的发现，粟宝珍神色呆滞，两边太阳穴上都糊了药膏，守在死者身边，埋头剥瓜子仁。这是很不恰当的表现，她和马师母等人为此交头接耳。粟宝珍注意到了邻居的议论，她说，你们不要这样看着我，我哭不动了，我的眼泪流干了，一滴也挤不出来了。</p>
+</li>
+<li><p>凡事要从实际出发啊，这个家一共四口人，疯了一个，关了一个，死了一个，只剩下宝珍一个人了，老礼不要紧，她的身体最要紧。</p>
+</li>
+<li><p>葬礼之后，粟宝珍被她妹妹接去了省城。她嫁到香椿树街几十年，为人妻为人母，最终还是靠娘家的亲人，返还了一个温暖的怀抱。</p>
+</li>
+<li><p>这样的临别赠言，让马师母差点流出了眼泪，她注意到三串钥匙是一样的，保润和他父亲的那两串，她觉得脏兮兮的，也不吉利，挑出来要还给粟宝珍。粟宝珍摆手道，马师母你都拿着，这个家的钥匙，我一把都不留，不瞒你马师母，我这一走，就不准备回来了，不是我心狠，现在别人的日子都好了，我也想过几天好日子啊。</p>
+</li>
+<li><p>那是保润骑过的永久牌自行车，自行车的后架上，还整整齐齐缠着一圈绳子。</p>
+</li>
+<li><p>柳生僵立在那里，看见有个粗壮的身影，在自行车边晃动。是十八岁的保润，他躲在门后的阴影里，浓缩成另一块阴影，他在时光的掩护下，等候时光飞逝。他在等谁？他依稀看见了十八岁的保润，胡须初现，肌肉发达，目光如刀。他看见了十八岁的保润，身上穿着旧时代风行的米黄色夹克，手里转动着一条长长的绳子，保润说，进来，柳生你进来，我们好好谈谈。</p>
+</li>
+<li><p>保润陌生的字迹留有体温，透过牛仔裤厚厚的布料，慢慢融化在柳生大腿的皮肤上。保润的生活以空洞的文字概括了，收入柳生的裤子口袋，竟然是沉甸甸的。</p>
+</li>
+<li><p>但更多的时候，这份默契不仅给他带来安宁，也给他带来了某种莫名的失落。他发现自己放不下她，他在怀念她。</p>
+</li>
+<li><p>当锈蚀的铁梯消失在钢筋水泥之中，一个噩梦被埋葬了，水塔里的世界焕然一新。他欣赏着那堵崭新的墙面，看着工匠往墙面上涂刷乳胶漆，心里陡然升起奇妙的喜悦之情，他创造了那堵墙，似乎借机获得了一次新生，因此，他一反常态，尽情地表扬了工匠们，干得好，堵得很好，刷得也很好。</p>
+</li>
+<li><p>他亲手堵住了一个黑暗的记忆，他亲手堵住了一条通往罪恶的路，他把一个秘密交给菩萨，从此以后，仁慈的菩萨会镇守所有黑暗的秘密。</p>
+</li>
+<li><p>依照他的理解，菩萨的手势不是代表宽恕，便是代表遗忘。他感到安心，彻底信任了那片金光。</p>
+</li>
+<li><p>他居然承受不了张师傅的一个手势，那手势像一支尖刀，带着毒液，直捣他的创口。这么多年了，他自以为创口已经痊愈，其实还在溃烂，一戳就痛。在社会上混了这么多年了，他不知道自己为什么越混脸皮越薄。他低估了自己的自尊心。</p>
+</li>
+<li><p>他还记得那扇窗子，扁扁小小的，像火车的车窗，从前他多次见过临窗而坐的仙女，头发湿漉漉的，插着一把红色的塑料梳子，她坐在窗边，看书，或者发呆，像一个旅行者坐在自己的火车上。</p>
+</li>
+<li><p>午后的阳光略显苍白，一片苍白的阳光带着恻隐之心，从附近的屋顶上逃下来，挤进马房的铁栅，努力勾勒出瞿鹰和三匹马的轮廓，那轮廓芜杂，也是苍白的。他们注意到阳光在瞿鹰瘦削的面颊跳动，他的眼角有一滴晶莹的泪珠。阿六轻声对柳生嘀咕，他在哭，他哭了。</p>
+</li>
+<li><p>那天他穿着驯马师的盛装，牵着马穿越大半个城市。一切如在梦中。繁华的街道是梦中的舞台，对于他来说，这舞台太长了，太大了，观众太多了。他有点骄傲，又有点害怕。那匹白马高大俊美，马的眼睛空灵而湿润，偶然的对视，他总觉得马的眼睛里噙着泪，因此他努力地向马示好，但除了抚摸马鬃，他并不知道怎么安抚这匹被主人抵债的马</p>
+</li>
+<li><p>这个夜晚，以其宁静与诡秘触动了他的心。星空下降了，极其温柔地铺在他的头顶上，河水向城外流淌，一路喃喃低语，偶有夜航的船只悄然经过，桅灯昏黄的光束从漆黑的河面上拖曳而过，河水稍稍亮了一下，很快又沉在黑暗里。石码头的夜色渲染了他的心事，他几乎彻夜无眠，明天开始，他要赡养一匹马了。是她的马。</p>
+</li>
+<li><p>暮色在原野上弥漫，灿烂的云霞转眼变成了无边的黑暗。野外的夜晚来得那么快，他心里忐忑，偏偏手机的电池所剩无几，不宜打电话回家打听什么，他致电春耕，委托春耕去家里察看一下他父母的安危。春</p>
+</li>
+<li><p>推开门，他一眼看见佛龛前的一团亮光，崇光寺的菩萨端坐于莲花座上，正在黑暗与空寂中普度众生，菩萨的手指向他发射出五道花瓣似的金光。</p>
+</li>
+<li><p>香烟在佛龛上笔直地上升，带着某种冲刺的热情，空气里开始溢满檀香和艾草的香味。</p>
+</li>
+<li><p>抽屉的垫纸下面果然有那么一张照片，保润捏着照片，放到窗前的光线下看，突然笑了一声，他妈的，没我了，我没了。柳生说，不是全家福吗，你怎么会没了？保润说，我的脸没了，我妈妈的身子没了，我爸爸全没了，就他好好的，他都在！ 　　柳生纳闷地凑上去，发现那张全家福照片被水渍浸泡过，影像的侵蚀效果很离奇，产生了神秘的取舍。保润胸前的红领巾还在，但颈部以上都腐蚀了，保润的母亲只剩下半边身体，依稀可见她穿着白色衬衫和黑色裙子，保润的父亲几乎完全消失，唯一残存的是一只皮鞋。全家福照片里只有祖父幸存，祖父在时间与水滴的销蚀中完好无损，祖父的苍老常在，祖父的猥琐常在，祖父的怯懦常在。</p>
+</li>
+<li><p>但这消息就像雨天屋檐上的一滴水，仅仅是滴答一声，落下来之后便什么也听不见了。</p>
+</li>
+<li><p>石屉打开着，里面积满了雨水，等待着一瓮灰的降临。旁边是死者当年为祖父预先购置的墓地，地盘更小一些，两颗马尾松栽得早，长得茂盛浓密，已经窜到半空去了。</p>
+</li>
+<li><p>后来起风了，他们顶着风朝墓地外面走，穿越了很多陌生人的墓碑。有纸钱和锡箔的碎屑被风卷起，在两个人的头顶上飘飘荡荡，像一群金色的飞蛾追逐着他们。他们在风中点起了香烟。柳生抽了一口烟，问保润，你爸爸嘱咐你什么，你都听进去了吗？</p>
+</li>
+<li><p>轰然一声巨响，整个世界轻盈地弹跳起来，然后沉重地下压，倾倒在她的胸口。她被天空掩埋了。菩萨浮在空中，菩萨的金手，温柔地指向她的腹部。一个倒置的世界围绕着她狂欢，有数道绛紫色的光束挣脱了她的头脑，箭矢般地射出去，她猜那是她的魂。她看见了她剩余的魂，剩余的魂是一绺一绺的，绛紫色的，像箭矢一样，会飞。她剩余的魂，不知飞到哪里去了。</p>
+</li>
+<li><p>她想起庞先生，心里不免怅然，那份感情来得快，去得更快，但胎儿是一座桥，把她的身体与庞先生连接在一起了。</p>
+</li>
+<li><p>之前她从未想过，柳生的殷勤，甚至轻浮，会变成她的救命稻草。后</p>
+</li>
+<li><p>有一根绳子伴随着她的生活。有一根绳子，至今仍然捆绑着她的身体，还有灵魂。她犟不过命运，她的命运由绳套控制，那诡异的绳套在一个个男人手上传递，最终交到了柳生手上。她被套住了。绳套对她说，留在这里。绳套对她说，你丢了魂，一切听我的。</p>
+</li>
+<li><p>这条乏味的街道，这所老旧的房子，是为她的落魄量身定做的。她是一个囚犯，是一个胎儿的囚犯。她是一个人质，是一个模糊的未来的人质。她也是一件抵押品，被命运之手提起来，提到这个陌生的阁楼上了。</p>
+</li>
+<li><p>只是某种熟悉的男人的气味惊醒了她，那气味从床铺上渗出来，从枕芯里爬出来，缠绕着她的面孔，甚至身体。</p>
+</li>
+<li><p>也许不是什么阴谋，也许柳生只是为了省钱，捉弄她的，是命运。这么多年过去了，有个魔鬼仍然在他们三人之间牵线搭桥，多么精巧的手艺，多么邪恶的手艺，她不知道该如何脱身。</p>
+</li>
+<li><p>两个人以静默交流，她终于被打动了。她接受了他的善意，这善意来得正是时候。他们之间的和解比想象的要快，而且细碎，但她信任这样的和解。</p>
+</li>
+<li><p>一看就是保润，他独自站着，一簇头发突兀地翘起来，形状像一只飞鸟，他忿忿地站着，目光是受骗者的目光，瞳仁里隐隐可见两朵愤怒的火焰。</p>
+</li>
+<li><p>她又气恼，又自怜，差点哭出来了，但善人桥下人来人往的，实在不是哭泣的好地方，她想不出什么调节情绪的良方，就用手机掩着半边脸，看乌黑的河水从桥洞下流过。乌黑的河水令她联想起一些溺死者惨白的尸体，她有点反胃，脑子里忽然浮现出那封未完成的遗书：我恨死了这个世界，我恨死了这个世界上的人。</p>
+</li>
+<li><p>她无端地想起那只天蓝色的铁丝兔笼，想起她饲养的两只兔子。她和柳生，多像两只兔子，两只兔子，一灰一白，它们现在睡在保润的笼子里。</p>
+</li>
+<li><p>岁月有点奇异，岁月仿照她少女时代的兔笼，编织了一个天蓝色的笼子，她像一只兔子，被困在笼子里了。有人陪着她，困在笼子里，她至今不敢指认，是谁在笼子里陪她。她在阁楼的曙色里依稀看见保润的影子，那影子在楼上楼下穿梭游荡，一双纯真悲伤的眼睛，监视着他们，也守护着他们。断断续续的梦来了。梦总是诡异的。</p>
+</li>
+<li><p>保润的上身裸露着，黝黑，宽厚，有一片水渍在他的肩膀上闪闪发亮，像一片银饰。她看那片水渍穿越他粗壮的大臂，慢慢流下来，干涸了，大臂上的刺青在阳光下显得清晰起来，他的左臂和右臂各刺了两个字，左侧是君子，右侧是报仇。</p>
+</li>
+<li><p>她打了个寒噤，依稀觉得门外的街道上时光倒流，发出恐怖的巨响。这个瞬间，她又听见了保润十八岁的嗓音，她又看见了保润十八岁的眼睛。</p>
+</li>
+<li><p>半夜的时候，天井里响起了奇怪的声音，像是有人不停地往地上泼水，哗啦啦，哗啦啦，泼得耐心，遵循着一种稳定的节奏。</p>
+</li>
+<li><p>她感到岸上的香椿树街在拒绝她，整个世界在拒绝她，只有水在挽留她，河水要把她留下，她僵硬的手臂颓然垂下，膝盖一松，水下的青苔顺势把她送回了水中。</p>
+</li>
+<li><p>她不知道溺水是这么美好的感觉，天空很蓝，有几朵棉絮状的白云。她看见了自己绛紫色的魂，一绺一绺散开的魂，一绺一绺绛紫色的魂，它们缓缓上升，与天上的白云融合在一起。河水其实也很美好，水面上有一条宽松而柔软的履带，风的动力在推送这条履带，推她顺流而下。河两岸的房屋富有节律地闪过，一扇窗，又一扇窗，一个人影，又一个人影。杂货店破败的石埠上，一盆被人遗弃的绣球花在怒放，半红半绿的。</p>
+</li>
+</ul>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="https://maplepoet.github.io/hexo">枳暮</a>
+            <p>原文链接：<a href="https://maplepoet.github.io/hexo/2023/07/16/2023071602/">https://maplepoet.github.io/hexo/2023/07/16/2023071602/</a>
+            <p>发表日期：<a href="https://maplepoet.github.io/hexo/2023/07/16/2023071602/">July 16th 2023, 11:09:00 am</a>
+            <p>更新日期：<a href="https://maplepoet.github.io/hexo/2023/07/16/2023071602/">July 16th 2023, 11:38:41 am</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/hexo/2023/07/16/2023071603/" title="我的帝王生涯">
+                    <div class="nextTitle">我的帝王生涯</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/hexo/2023/07/16/2023071601/" title="喧哗与骚动">
+                    <div class="prevTitle">喧哗与骚动</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:aaronshan96@outlook.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Highlights"><span class="toc-number">1.</span> <span class="toc-text">Highlights</span></a></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 4
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/hexo/2021/08/04/hello-world/">Hello World</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2023 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/16</span>
+            <a class="archive-post-title" href="/hexo/2023/07/16/2023071603/">我的帝王生涯</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/16</span>
+            <a class="archive-post-title" href="/hexo/2023/07/16/2023071602/">黄雀记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/16</span>
+            <a class="archive-post-title" href="/hexo/2023/07/16/2023071601/">喧哗与骚动</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="文学">
+                <span class="iconfont-archer">&#xe606;</span>
+                文学
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="书摘">
+                <span class="iconfont-archer">&#xe606;</span>
+                书摘
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="福克纳">
+                <span class="iconfont-archer">&#xe606;</span>
+                福克纳
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="苏童">
+                <span class="iconfont-archer">&#xe606;</span>
+                苏童
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/hexo/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "https://maplepoet.github.io/hexo",
+        root: siteMetaRoot,
+        author: "枳暮"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/hexo/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/hexo/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/hexo/scripts/share.js?v=20211217" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>
