@@ -19,13 +19,15 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta property="og:type" content="article">
+    <meta name="description" content="DockerBasic12345678910111213141516171819202122docker container run -d --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD&#x3D;True mysql# Run the containerdocker container logs xxx# show the logsdocker container t">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Docker">
 <meta property="og:url" content="https://maplepoet.github.io/hexo/2024/03/07/Docker/index.html">
 <meta property="og:site_name" content="枳暮">
+<meta property="og:description" content="DockerBasic12345678910111213141516171819202122docker container run -d --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD&#x3D;True mysql# Run the containerdocker container logs xxx# show the logsdocker container t">
 <meta property="og:locale">
 <meta property="article:published_time" content="2024-03-07T13:38:52.000Z">
-<meta property="article:modified_time" content="2024-03-07T13:38:52.166Z">
+<meta property="article:modified_time" content="2024-05-22T15:06:46.432Z">
 <meta property="article:author" content="枳暮">
 <meta name="twitter:card" content="summary">
     <meta http-equiv="Cache-control" content="no-cache">
@@ -487,7 +489,152 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        
+        <h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><h2 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">docker container run -d --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=True mysql</span><br><span class="line"><span class="comment"># Run the container</span></span><br><span class="line">docker container logs xxx</span><br><span class="line"><span class="comment"># show the logs</span></span><br><span class="line">docker container top xxx</span><br><span class="line"><span class="comment"># process list in one container</span></span><br><span class="line">docker container inspect xxx</span><br><span class="line"><span class="comment"># show metadata about the container (startup, config, volumes, networking, etc)</span></span><br><span class="line">docker container stats xxx</span><br><span class="line"><span class="comment"># Show live performance data for all containers</span></span><br><span class="line">dockerr container run --<span class="built_in">rm</span> -it --name namexx -p 8080:80 xxx </span><br><span class="line"><span class="comment"># i means interactively, t means pseudo tty.</span></span><br><span class="line"><span class="comment"># Start --it container interactively </span></span><br><span class="line"><span class="comment"># after exit, docker container start -ai xxx to enter the container</span></span><br><span class="line"></span><br><span class="line">docker container <span class="built_in">exec</span> -it xxx <span class="string">&quot;commands&quot;</span></span><br><span class="line"><span class="comment"># run additional command in existing container</span></span><br><span class="line"></span><br><span class="line">docker container port xxx (name)</span><br><span class="line"></span><br><span class="line">docker container inspect --format <span class="string">&#x27;&#123;&#123;.NetworkSettings.IPAddress &#125;&#125;&#x27;</span> xxx (name)</span><br><span class="line"><span class="comment"># a common option for formatting the output of commands using &quot;Go templates&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="Network"><a href="#Network" class="headerlink" title="Network"></a>Network</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">docker network <span class="built_in">ls</span></span><br><span class="line"><span class="comment"># List all docker networks</span></span><br><span class="line">docker network <span class="built_in">ls</span> --network bridge </span><br><span class="line"><span class="comment"># default docker virtual network, which is NAT&quot;ed behind the Host IP</span></span><br><span class="line">docker network <span class="built_in">ls</span> --network host</span><br><span class="line"><span class="comment"># It gains performance by skipping virtual machine but sacrifices security of container model</span></span><br><span class="line"></span><br><span class="line">docker entwork <span class="built_in">ls</span> --network none</span><br><span class="line"><span class="comment"># removes eth0 and only leaves you with localhost interface in container</span></span><br><span class="line"></span><br><span class="line">docker network inspect</span><br><span class="line">docker network create --driver xxx</span><br><span class="line"><span class="comment"># Spawns a new virtual network for you to attach containers to</span></span><br><span class="line"></span><br><span class="line">docker container run ... --network xxx</span><br><span class="line"></span><br><span class="line">docker network connect xxx(network) xxx(container)</span><br><span class="line"></span><br><span class="line">docker network disconnect</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="Docker-Network-DNS"><a href="#Docker-Network-DNS" class="headerlink" title="Docker Network DNS"></a>Docker Network DNS</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker container <span class="built_in">exec</span> -it my_nginx ping old_ngingx (name of other container)</span><br><span class="line"><span class="comment"># Assignment: Round Robin Test</span></span><br><span class="line"></span><br><span class="line">docker image <span class="built_in">history</span> nginx:latest</span><br><span class="line"><span class="comment"># show layers of changes made in image </span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker pull</span><br><span class="line">docker login</span><br><span class="line">docker tag</span><br><span class="line">docker push</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="PRUNE"><a href="#PRUNE" class="headerlink" title="PRUNE"></a>PRUNE</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">docker system <span class="built_in">df</span> </span><br><span class="line"><span class="comment"># see space usage</span></span><br><span class="line"></span><br><span class="line">docker system prune</span><br><span class="line"><span class="comment"># clean up everything you&quot;re not currently using</span></span><br><span class="line"></span><br><span class="line">docker image prune -a</span><br><span class="line"><span class="comment"># remove all iamges you&#x27;re not using</span></span><br><span class="line"></span><br><span class="line">docker image prune</span><br><span class="line"><span class="comment"># clean up just &quot;dangling&quot; images</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="Persistent-Data"><a href="#Persistent-Data" class="headerlink" title="Persistent Data"></a>Persistent Data</h2><p>VOLUME path</p>
+<p>After run docker container inspect xx</p>
+<p>“Mounts”: </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">docker volume <span class="built_in">ls</span></span><br><span class="line">docker volume inspect xxx(<span class="built_in">id</span>)</span><br><span class="line">docker run .. -v mysql-db:/var/lib/mysql ...</span><br><span class="line"></span><br><span class="line"><span class="comment"># name for the volume: mysql-db</span></span><br><span class="line">docker volume create </span><br><span class="line"></span><br><span class="line"><span class="comment"># Shell differences for path expansion (Bind Mounting)</span></span><br><span class="line"><span class="comment"># Map host file to a container file or directiory </span></span><br><span class="line"><span class="comment"># Can not used in Dockerfile, but must with docker contaienr run</span></span><br><span class="line">... run -v /Users/xxx:/path/container Linux mac</span><br><span class="line">... run -v //c/User/xxx:/path/container windows </span><br><span class="line"></span><br><span class="line">-e POSTGRES_PASSWORD=mypassword</span><br><span class="line">-e POSTGRES_HOST_AUTH_METHOD=trust</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>Jekyll “static site generator”</p>
+</blockquote>
+<h2 id="Docker-Compose"><a href="#Docker-Compose" class="headerlink" title="Docker Compose"></a>Docker Compose</h2><ol>
+<li>YML file: containers, network, volumes</li>
+<li>Docker-compose tool for local dev&#x2F;test automation</li>
+</ol>
+<p><strong>Docker-compose.yml</strong></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># version isn&#x27;t needed as of 2020 for docker compose CLI. </span></span><br><span class="line"><span class="comment"># All 2.x and 3.x features supported</span></span><br><span class="line"><span class="comment"># Docker Swarm still needs a 3.x version</span></span><br><span class="line"><span class="comment"># version: &#x27;3.9&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span>  <span class="comment"># containers. same as docker run</span></span><br><span class="line">  <span class="attr">servicename:</span> <span class="comment"># a friendly name. this is also DNS name inside network</span></span><br><span class="line">    <span class="attr">image:</span> <span class="comment"># Optional if you use build:</span></span><br><span class="line">    <span class="attr">command:</span> <span class="comment"># Optional, replace the default CMD specified by the image</span></span><br><span class="line">    <span class="attr">environment:</span> <span class="comment"># Optional, same as -e in docker run</span></span><br><span class="line">    <span class="attr">volumes:</span> <span class="comment"># Optional, same as -v in docker run</span></span><br><span class="line">  <span class="attr">servicename2:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">volumes:</span> <span class="comment"># Optional, same as docker volume create</span></span><br><span class="line"></span><br><span class="line"><span class="attr">networks:</span> <span class="comment"># Optional, same as docker network create</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Docker-compose up</span><br><span class="line">docker-compose down</span><br><span class="line">docker-compose up --build</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">services:</span><br><span class="line">  proxy:</span><br><span class="line">    build:</span><br><span class="line">      context: .</span><br><span class="line">      dockerfile: nginx.Dockerfile</span><br><span class="line">    ports:</span><br><span class="line">      - &#x27;80:80&#x27;</span><br><span class="line">  web:</span><br><span class="line">    image: httpd</span><br><span class="line">    volumes:</span><br><span class="line">      - ./html:/usr/local/apache2/htdocs/</span><br></pre></td></tr></table></figure>
+
+<h2 id="Swarm"><a href="#Swarm" class="headerlink" title="Swarm"></a>Swarm</h2><p>Clustering solution built inside Docker</p>
+<p><strong>Raft consensus Group</strong>, Gossip network</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker swarm init</span><br></pre></td></tr></table></figure>
+
+<p>Lots of PKI and security automation</p>
+<ul>
+<li><p>root signing certificate created for swarm</p>
+</li>
+<li><p>Certificate is issued for the first Manager node</p>
+</li>
+<li><p>join tokens are created</p>
+</li>
+</ul>
+<p>Raft database created to store root CA, config and secrets</p>
+<ul>
+<li><p>Encrypted by default on disk</p>
+</li>
+<li><p>no need for another key&#x2F;value system to hold orchestration&#x2F;secrets</p>
+</li>
+<li><p>Replicas logs amongst Manager via mutual TLS in “control plane”</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">docker service create alpine ping 8.8.8.8</span><br><span class="line"></span><br><span class="line">docker service <span class="built_in">ls</span></span><br><span class="line"></span><br><span class="line">docker service ps xxx(name)</span><br><span class="line"></span><br><span class="line">docker service update xx(ID) --replicas 3</span><br><span class="line"></span><br><span class="line">docker update</span><br><span class="line"></span><br><span class="line">docker containerr <span class="built_in">rm</span> -f xxx.1.xxx</span><br><span class="line"></span><br><span class="line">Docker swarm init</span><br><span class="line"></span><br><span class="line">Docker swarm init --advertise-addr xxx(ip address)</span><br><span class="line"></span><br><span class="line">docker node <span class="built_in">ls</span></span><br><span class="line"></span><br><span class="line">docker node update --role manager node2</span><br><span class="line"></span><br><span class="line">docker swarm <span class="built_in">join</span> xxxx xxxx</span><br><span class="line"></span><br><span class="line">docker swarm join-token manager (For <span class="built_in">join</span> a new node)</span><br><span class="line"></span><br><span class="line">docker service create --replicas 3 alpine ping 8.8.8.8</span><br><span class="line"></span><br><span class="line">docker node ps node1/node2</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Overlay-Network"><a href="#Overlay-Network" class="headerlink" title="Overlay Network"></a>Overlay Network</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--driver overlay</span><br></pre></td></tr></table></figure>
+
+<p>for container-to-container traffic inside a single swarm</p>
+<p>Optional IPSec(AES) encrpytion on network creation</p>
+<p>Each service can be connected to multiple networks</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">docker network create --driver overlay mydrupal</span><br><span class="line"></span><br><span class="line">docker network ls</span><br><span class="line"></span><br><span class="line">docker service create --name psql --network mydrupal -e xxx postgres</span><br><span class="line"></span><br><span class="line">docker service ps psql</span><br><span class="line"></span><br><span class="line">docker container logs psql.1.xxx</span><br><span class="line"></span><br><span class="line">docker serrvice create --name drupal --network mydrupal -p 80:80 drupal</span><br><span class="line"></span><br><span class="line">watch docker service ls</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="scaling-out-with-Routing-Mesh"><a href="#scaling-out-with-Routing-Mesh" class="headerlink" title="scaling out with Routing Mesh"></a>scaling out with Routing Mesh</h3><p>Routes ingress packets for a Service to proper Task</p>
+<p>span all nodes in swarm</p>
+<p>Uses IPVS from Linux Kernel</p>
+<p>Load balances Swarm services across their taks</p>
+<p>Two ways:</p>
+<ul>
+<li>container to container in a Overlay network (use VIP)</li>
+<li>External traffic incoming to published ports (all nodes listen)</li>
+</ul>
+<p>stateless load balancing , OSI Layer 3 (TCP), not Layer 4(DNS)</p>
+<p>both limitation can be overcome with nginx or HAProxy LB proxy</p>
+<p>Docker Enterprise Edition comes with built-in L4 web proxy</p>
+<h3 id="swarm-stacks"><a href="#swarm-stacks" class="headerlink" title="swarm stacks"></a>swarm stacks</h3><p>use docker stack deploy rather than docker service create</p>
+<p>compose ignores deploy, swarm ignore build</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;3.9&quot;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">redis:alpine</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">frontend</span></span><br><span class="line">  <span class="attr">db:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">postgres:13</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">db-data:/var/lib/postgresql/data</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">backend</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">POSTGRES_HOST_AUTH_METHOD=trust</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">vote:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">bretfisher/examplevotingapp_vote</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;5000:80&quot;</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">frontend</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="attr">mode:</span> <span class="string">global</span></span><br><span class="line">  <span class="attr">result:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">bretfisher/examplevotingapp_result</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;5001:80&quot;</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">backend</span></span><br><span class="line">  <span class="attr">worker:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">bretfisher/examplevotingapp_worker</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">frontend</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">backend</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="attr">mode:</span> <span class="string">global</span></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="attr">frontend:</span></span><br><span class="line">  <span class="attr">backend:</span></span><br><span class="line"><span class="attr">volumes:</span></span><br><span class="line">  <span class="attr">db-data:</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker stack deploy -c xxx.yml voteapp</span><br><span class="line"></span><br><span class="line">docker stack ps voteapp (list all nodes)</span><br><span class="line"></span><br><span class="line">docker stack services voteapp (list all service)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Secret-Storage-in-Swarm"><a href="#Secret-Storage-in-Swarm" class="headerlink" title="Secret Storage in Swarm"></a>Secret Storage in Swarm</h3><ul>
+<li>Username passwords</li>
+<li>TLS certificate and keys</li>
+<li>SSH keys</li>
+<li>Any data you would prefer not be on front page of news</li>
+</ul>
+<p>swarm RAFT DB is encrypted on disk</p>
+<p>only stored on disk on manager nodes</p>
+<p>Default is managers and workers contorl plane is TLS + Mutual Auth</p>
+<p>secrets are first stored in swarm, then assigned to service</p>
+<p>only containers is assigned Service can see them</p>
+<p>they look like files in containers but are actually in-memory file system</p>
+<p>Local docker-compose can use file-based secrets, but not secure</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">docker secret create psql_user sql_user.txt</span><br><span class="line"></span><br><span class="line">Echo <span class="string">&quot;myDBxxx&quot;</span> | docker secret create psql_pass - </span><br><span class="line"></span><br><span class="line">docker secret <span class="built_in">ls</span></span><br><span class="line"></span><br><span class="line">docker secret inspect psql_user</span><br><span class="line"></span><br><span class="line">Docker service create --name psql --secret psql_user --secret psql_pass -e POSTGRES_PASSWORD_FILE=/run/secrets/psql_pass -e POSTGRES_USER_FILE=/run/secrets/psql_userr postgres</span><br><span class="line"></span><br><span class="line">docker service ps psql</span><br><span class="line"></span><br><span class="line">docker <span class="built_in">exec</span> -it psql.1.xxx</span><br><span class="line"></span><br><span class="line"><span class="built_in">ls</span> /run/secrets</span><br><span class="line"></span><br><span class="line">docker logs psql.1.xx</span><br><span class="line"></span><br><span class="line">docker service update --secret-rm</span><br><span class="line"></span><br><span class="line">docker service create --name search --replicas 3 -p 9200:9200 elasticsearch:2</span><br><span class="line">docker stack deploy -c xxx.yml mydb</span><br><span class="line">docker stack <span class="built_in">rm</span> mydb</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Docker-compose-for-Full-App-Lifecycle"><a href="#Docker-compose-for-Full-App-Lifecycle" class="headerlink" title="Docker compose for Full App Lifecycle"></a>Docker compose for Full App Lifecycle</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<p>When you run <code>docker-compose up</code>, it searches for a file named <code>docker-compose.yml</code> and reads all configured services, networks, volumes etc to create your Docker stack. If you also additionally have a file named <code>docker-compose.override.yml</code> this will be read as well and used as an override file to complement. It works in the following order:</p>
+<ol>
+<li>All definitions from <code>docker-compose.yml</code> will be used</li>
+<li>All definitions that are also defined in <code>docker-compose.override.yml</code> will automatically overwrite the settings from <code>docker-compose.yml</code></li>
+<li>All definitions only available in <code>docker-compose.override.yml</code> will be added additionally.</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker-compose -f docker-compose.yml -f docker-compose.test.yml up -d</span><br><span class="line"></span><br><span class="line">docker-compose -f docker-compose.yml -f docker-compose.prod.yml config &gt; output.yml</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Update-service"><a href="#Update-service" class="headerlink" title="Update service"></a>Update service</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">docker service update --image xxx xxx(service name)</span><br><span class="line"><span class="comment"># Just update the image used to a newer version</span></span><br><span class="line"></span><br><span class="line">docker service update --env-add NODE_ENV=production --publish-rm 8080</span><br><span class="line"><span class="comment"># Adding an environment variable and remove a port</span></span><br><span class="line"></span><br><span class="line">docker service scale web=8 api=6</span><br><span class="line"><span class="comment"># change number of replicas of two services</span></span><br><span class="line"></span><br><span class="line">docker stack deploy -c xxx.yml &lt;stackname&gt;</span><br><span class="line"><span class="comment"># same command. just edit the yaml file and then </span></span><br><span class="line"></span><br><span class="line">Docker service rollback</span><br><span class="line"></span><br><span class="line">docker service update --force xxx(serrvice name)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="health-check-in-Dockerfile"><a href="#health-check-in-Dockerfile" class="headerlink" title="health check in Dockerfile"></a>health check in Dockerfile</h3><p>supported in Dockerfile, compose yaml, docker run and swarm services </p>
+<p>it expects exit 0 (OK) and exit 1 (Error)</p>
+<p>three states: starting, healthy, unhealthy</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker container <span class="built_in">ls</span></span><br><span class="line"></span><br><span class="line">docker container inspect (last 5 health checks )</span><br><span class="line"><span class="comment"># service will replace tasks if they fail healthcheck</span></span><br><span class="line"></span><br><span class="line">docker run --health-cmd=<span class="string">&quot;curl -f localhost:9200/\_cluster/heath || false&quot;</span></span><br><span class="line"></span><br><span class="line">--health-interval=5s --health-retries=3 --health-timeout=2s --health-start-period=15s </span><br><span class="line"></span><br><span class="line">--interval --<span class="built_in">timeout</span> --start-period --retries</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Container-Registries"><a href="#Container-Registries" class="headerlink" title="Container Registries"></a>Container Registries</h2><p>Private docker registry </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Run the registry image</span></span><br><span class="line">docker container run -d -p 5000:5000 --name registry registry</span><br><span class="line"></span><br><span class="line"><span class="comment"># Re-tag an existing image and push it to.your new registry</span></span><br><span class="line">docker tag hello-world 127.0.0.1:5000/hello-world</span><br><span class="line">docker push 127.0.0.1:5000/hello-world</span><br><span class="line"></span><br><span class="line"><span class="comment"># Remove the image from local cache and pull it from new registry</span></span><br><span class="line">docker image remove hello-world</span><br><span class="line">docker image remove 127.0.0.1:5000/hello-world</span><br><span class="line">docker pull 172.0.0.1:5000/hello-world</span><br><span class="line"></span><br><span class="line"><span class="comment"># Re-create registry using a bind mount and see how it stores data</span></span><br><span class="line">docker container run -d -p 5000:5000 --name registry -v $(<span class="built_in">pwd</span>)/registry-data:/var/lib/registry registry</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
     </article>
     <!-- license -->
     
@@ -495,7 +642,7 @@
             <p>原文作者：<a href="https://maplepoet.github.io/hexo">枳暮</a>
             <p>原文链接：<a href="https://maplepoet.github.io/hexo/2024/03/07/Docker/">https://maplepoet.github.io/hexo/2024/03/07/Docker/</a>
             <p>发表日期：<a href="https://maplepoet.github.io/hexo/2024/03/07/Docker/">March 7th 2024, 2:38:52 pm</a>
-            <p>更新日期：<a href="https://maplepoet.github.io/hexo/2024/03/07/Docker/">March 7th 2024, 2:38:52 pm</a>
+            <p>更新日期：<a href="https://maplepoet.github.io/hexo/2024/03/07/Docker/">May 22nd 2024, 5:06:46 pm</a>
             <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -642,7 +789,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Docker"><span class="toc-number">1.</span> <span class="toc-text">Docker</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Basic"><span class="toc-number">1.1.</span> <span class="toc-text">Basic</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Network"><span class="toc-number">1.2.</span> <span class="toc-text">Network</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker-Network-DNS"><span class="toc-number">1.3.</span> <span class="toc-text">Docker Network DNS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PRUNE"><span class="toc-number">1.4.</span> <span class="toc-text">PRUNE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Persistent-Data"><span class="toc-number">1.5.</span> <span class="toc-text">Persistent Data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker-Compose"><span class="toc-number">1.6.</span> <span class="toc-text">Docker Compose</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Swarm"><span class="toc-number">1.7.</span> <span class="toc-text">Swarm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Overlay-Network"><span class="toc-number">1.8.</span> <span class="toc-text">Overlay Network</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#scaling-out-with-Routing-Mesh"><span class="toc-number">1.8.1.</span> <span class="toc-text">scaling out with Routing Mesh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#swarm-stacks"><span class="toc-number">1.8.2.</span> <span class="toc-text">swarm stacks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Secret-Storage-in-Swarm"><span class="toc-number">1.8.3.</span> <span class="toc-text">Secret Storage in Swarm</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker-compose-for-Full-App-Lifecycle"><span class="toc-number">1.9.</span> <span class="toc-text">Docker compose for Full App Lifecycle</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Update-service"><span class="toc-number">1.9.1.</span> <span class="toc-text">Update service</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#health-check-in-Dockerfile"><span class="toc-number">1.9.2.</span> <span class="toc-text">health check in Dockerfile</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Container-Registries"><span class="toc-number">1.10.</span> <span class="toc-text">Container Registries</span></a></li></ol></li></ol>
             </div>
         
         <!-- sidebar -->
@@ -696,7 +843,42 @@
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -731,7 +913,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 8
+        Total : 11
         </div>
         <!-- search  -->
         
@@ -747,6 +929,30 @@
             
         
         <li class="archive-post-item">
+            <span class="archive-post-date">05/22</span>
+            <a class="archive-post-title" href="/hexo/2024/05/22/AWS-Solution-Architect/">AWS_Solution_Architect</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/22</span>
+            <a class="archive-post-title" href="/hexo/2024/05/22/PostgreSQL/">PostgreSQL</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/22</span>
+            <a class="archive-post-title" href="/hexo/2024/05/22/VueJS/">VueJS</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span>
+            <a class="archive-post-title" href="/hexo/2024/03/07/AWS/">AWS</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
             <span class="archive-post-date">03/07</span>
             <a class="archive-post-title" href="/hexo/2024/03/07/Ansible/">Ansible</a>
         </li>
@@ -760,7 +966,7 @@
         
         <li class="archive-post-item">
             <span class="archive-post-date">03/07</span>
-            <a class="archive-post-title" href="/hexo/2024/03/07/Terraform/">Terraform</a>
+            <a class="archive-post-title" href="/hexo/2024/03/07/Kafka-Zookeeper/">Kafka Zookeeper</a>
         </li>
     
         
@@ -772,13 +978,7 @@
         
         <li class="archive-post-item">
             <span class="archive-post-date">03/07</span>
-            <a class="archive-post-title" href="/hexo/2024/03/07/AWS/">AWS</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/07</span>
-            <a class="archive-post-title" href="/hexo/2024/03/07/Kafka-Zookeeper/">Kafka Zookeeper</a>
+            <a class="archive-post-title" href="/hexo/2024/03/07/Terraform/">Terraform</a>
         </li>
     
         

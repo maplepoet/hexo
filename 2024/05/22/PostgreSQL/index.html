@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="枳暮">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="枳暮">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="PostgreSQL123docker run --name my-postgres -e POSTGRES_PASSWORD&#x3D;[YOURPASSWORD] -p 5432:5432 -d postgresdocker exec -it my-postgres psql -U postgres  COPY File 12345docker cp yourfile.sql my-postgres:&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PostgreSQL">
+<meta property="og:url" content="https://maplepoet.github.io/hexo/2024/05/22/PostgreSQL/index.html">
+<meta property="og:site_name" content="枳暮">
+<meta property="og:description" content="PostgreSQL123docker run --name my-postgres -e POSTGRES_PASSWORD&#x3D;[YOURPASSWORD] -p 5432:5432 -d postgresdocker exec -it my-postgres psql -U postgres  COPY File 12345docker cp yourfile.sql my-postgres:&#x2F;">
+<meta property="og:locale">
+<meta property="article:published_time" content="2024-05-22T15:13:21.000Z">
+<meta property="article:modified_time" content="2024-05-22T15:23:00.411Z">
+<meta property="article:author" content="枳暮">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/hexo/assets/favicon.ico">
+    
+    <title>PostgreSQL · 枳暮&#39;s Blog</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/hexo/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/hexo/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/hexo/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/hexo/css/dark.css">
+    <link rel="stylesheet" href="/hexo/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/hexo/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/hexo/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/hexo/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- Google tag (gtag.js) -->
+    
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/hexo/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/hexo/>枳暮's Blog.</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/hexo/">枳暮&#39;s Blog.</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">PostgreSQL</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+    
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/hexo/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                PostgreSQL
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+</div>
+
+                
+                <!-- 文章字数统计 -->
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2024/05/22</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/hexo/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/hexo/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="PostgreSQL"><a href="#PostgreSQL" class="headerlink" title="PostgreSQL"></a>PostgreSQL</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run --name my-postgres -e POSTGRES_PASSWORD=[YOURPASSWORD] -p 5432:5432 -d postgres</span><br><span class="line"></span><br><span class="line">docker <span class="built_in">exec</span> -it my-postgres psql -U postgres</span><br></pre></td></tr></table></figure>
+
+<p>COPY File</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">cp</span> yourfile.sql my-postgres:/yourfile.sql</span><br><span class="line"></span><br><span class="line">docker <span class="built_in">exec</span> -it my-postgres bash</span><br><span class="line"></span><br><span class="line">psql -U postgres -d your_database_name -f /yourfile.sql</span><br></pre></td></tr></table></figure>
+
+<h2 id="Create-Database"><a href="#Create-Database" class="headerlink" title="Create Database"></a>Create Database</h2><figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> dbname;</span><br><span class="line">\l</span><br><span class="line">\c dbname</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">DATABASE</span> [ <span class="keyword">IF</span> <span class="keyword">EXISTS</span> ] <span class="type">name</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Create-Table"><a href="#Create-Table" class="headerlink" title="Create Table"></a>Create Table</h2><figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="built_in">table_name</span>(</span><br><span class="line">   column1 datatype,</span><br><span class="line">   column2 datatype,</span><br><span class="line">   column3 datatype,</span><br><span class="line">   .....</span><br><span class="line">   columnN datatype,</span><br><span class="line">   <span class="keyword">PRIMARY KEY</span>( 一个或多个列 )</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Drop-Database"><a href="#Drop-Database" class="headerlink" title="Drop Database"></a>Drop Database</h2><figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="built_in">table_name</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Select-Data-from-Database"><a href="#Select-Data-from-Database" class="headerlink" title="Select Data from Database"></a>Select Data from Database</h2><figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column1, column2, columnN</span><br><span class="line"><span class="keyword">FROM</span> <span class="built_in">table_name</span></span><br><span class="line"><span class="keyword">WHERE</span> [CONDITION | EXPRESSION];</span><br></pre></td></tr></table></figure>
+
+<h2 id="Update-Delete-Data-in-Database"><a href="#Update-Delete-Data-in-Database" class="headerlink" title="Update&#x2F;Delete Data in Database"></a>Update&#x2F;Delete Data in Database</h2><figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> numerical_expression <span class="keyword">as</span> OPERATION_NAME</span><br><span class="line">[<span class="keyword">FROM</span> <span class="built_in">table_name</span> <span class="keyword">WHERE</span> CONDITION] ;</span><br><span class="line"></span><br><span class="line"><span class="keyword">UPDATE</span> <span class="built_in">table_name</span></span><br><span class="line"><span class="keyword">SET</span> column1 = value1, column2 = value2...., columnN = valueN</span><br><span class="line"><span class="keyword">WHERE</span> [condition];</span><br><span class="line"></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> <span class="built_in">table_name</span> <span class="keyword">WHERE</span> [condition];</span><br></pre></td></tr></table></figure>
+
+<h2 id="avg-sum-count"><a href="#avg-sum-count" class="headerlink" title="avg, sum, count"></a>avg, sum, count</h2><ul>
+<li>avg() ： 返回一个表达式的平均值</li>
+<li>sum() ： 返回指定字段的总和</li>
+<li>count() ： 返回查询的记录总数</li>
+</ul>
+<h2 id="TimeStamp"><a href="#TimeStamp" class="headerlink" title="TimeStamp"></a>TimeStamp</h2><figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">CURRENT_TIMESTAMP</span>;</span><br><span class="line">       <span class="built_in">current_timestamp</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="WHERE-Condition"><a href="#WHERE-Condition" class="headerlink" title="WHERE Condition"></a>WHERE Condition</h2><p>WHERE</p>
+<ul>
+<li>AND</li>
+<li>OR</li>
+<li>NOT NULL</li>
+<li>LIKE</li>
+<li>IN</li>
+<li>NOT IN</li>
+<li>BETWEEN</li>
+<li><strong>EXISTS</strong></li>
+</ul>
+<figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> <span class="built_in">table_name</span></span><br><span class="line"><span class="keyword">SET</span> column1 = value1, column2 = value2...., columnN = valueN</span><br><span class="line"><span class="keyword">WHERE</span> [condition];</span><br><span class="line"></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> <span class="built_in">table_name</span> <span class="keyword">WHERE</span> [condition];</span><br><span class="line"></span><br><span class="line"><span class="keyword">WHERE</span> SALARY::<span class="type">text</span> <span class="keyword">LIKE</span> <span class="string">&#x27;_2%3&#x27;</span>	# 找出 SALARY 字段中 <span class="number">2</span> 在第二个位置上并且以 <span class="number">3</span> 结尾的数据</span><br></pre></td></tr></table></figure>
+
+<h2 id="LIMIT-ORDER-BY-GROUP-BY-DISTINCT"><a href="#LIMIT-ORDER-BY-GROUP-BY-DISTINCT" class="headerlink" title="LIMIT, ORDER BY, GROUP BY, DISTINCT"></a>LIMIT, ORDER BY, GROUP BY, DISTINCT</h2><figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column1, column2, columnN </span><br><span class="line"><span class="keyword">FROM</span> <span class="built_in">table_name</span></span><br><span class="line"><span class="keyword">LIMIT</span> [<span class="keyword">no</span> <span class="keyword">of</span> <span class="keyword">rows</span>] <span class="keyword">OFFSET</span> [<span class="keyword">row</span> num]</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">column</span>-list</span><br><span class="line"><span class="keyword">FROM</span> <span class="built_in">table_name</span></span><br><span class="line">[<span class="keyword">WHERE</span> condition]</span><br><span class="line">[<span class="keyword">ORDER</span> <span class="keyword">BY</span> column1, column2, .. columnN] [<span class="keyword">ASC</span> | <span class="keyword">DESC</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">column</span>-list</span><br><span class="line"><span class="keyword">FROM</span> <span class="built_in">table_name</span></span><br><span class="line"><span class="keyword">WHERE</span> [ conditions ]</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> column1, column2....columnN</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> column1, column2....columnN</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> column1, column2</span><br><span class="line"><span class="keyword">FROM</span> table1, table2</span><br><span class="line"><span class="keyword">WHERE</span> [ conditions ]</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> column1, column2</span><br><span class="line"><span class="keyword">HAVING</span> [ conditions ]</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> column1, column2</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> column1, column2,.....columnN</span><br><span class="line"><span class="keyword">FROM</span> <span class="built_in">table_name</span></span><br><span class="line"><span class="keyword">WHERE</span> [condition]</span><br></pre></td></tr></table></figure>
+
+<h2 id="Constraints-约束"><a href="#Constraints-约束" class="headerlink" title="Constraints 约束"></a>Constraints 约束</h2><p>以下是在 PostgreSQL 中常用的约束。</p>
+<ul>
+<li><p><strong>NOT NULL</strong>：指示某列不能存储 NULL 值。</p>
+</li>
+<li><p><strong>UNIQUE</strong>：确保某列的值都是唯一的。</p>
+</li>
+<li><p>PRIMARY Key：NOT NULL 和 UNIQUE 的结合。确保某列（或两个列多个列的结合）有唯一标识，有助于更容易更快速地找到表中的一个特定的记录。。</p>
+</li>
+<li><p>FOREIGN Key： 保证一个表中的数据匹配另一个表中的值的参照完整性。 references COMPANY6(ID)</p>
+</li>
+<li><p>CHECK： 保证列中的值符合指定的条件。  CHECK(SALARY &gt; 0)</p>
+</li>
+<li><p>EXCLUSION ：排他约束，保证如果将任何两行的指定列或表达式使用指定操作符进行比较，至少其中一个操作符比较将会返回 false 或空值。</p>
+<ul>
+<li><p><em>CREATE EXTENSION btree_gist</em>;</p>
+</li>
+<li><pre><code class="postgresql">CREATE TABLE COMPANY7(
+   ID INT PRIMARY KEY     NOT NULL,
+   NAME           TEXT,
+   AGE            INT  ,
+   ADDRESS        CHAR(50),
+   SALARY         REAL,
+   EXCLUDE USING gist
+   (NAME WITH =,  -- 如果满足 NAME 相同，AGE 不相同则不允许插入，否则允许插入
+   AGE WITH &lt;&gt;)   -- 其比较的结果是如果整个表达式返回 true，则不允许插入，否则允许
+);
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- ```postgresql</span><br><span class="line">  ALTER TABLE table_name DROP CONSTRAINT some_name;</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Join"><a href="#Join" class="headerlink" title="Join"></a>Join</h2><figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># <span class="keyword">Cross</span> <span class="keyword">Join</span></span><br><span class="line"><span class="keyword">SELECT</span> ... <span class="keyword">FROM</span> table1 <span class="keyword">CROSS</span> <span class="keyword">JOIN</span> table2 ...</span><br><span class="line"></span><br><span class="line"># <span class="keyword">Inner</span> <span class="keyword">Join</span></span><br><span class="line"><span class="keyword">SELECT</span> table1.column1, table2.column2...</span><br><span class="line"><span class="keyword">FROM</span> table1</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> table2</span><br><span class="line"><span class="keyword">ON</span> table1.common_filed = table2.common_field;</span><br><span class="line"></span><br><span class="line"># <span class="keyword">Left Join</span></span><br><span class="line"><span class="keyword">SELECT</span> ... <span class="keyword">FROM</span> table1 <span class="keyword">LEFT OUTER JOIN</span> table2 <span class="keyword">ON</span> conditional_expression ...</span><br><span class="line"></span><br><span class="line"># <span class="keyword">Right Join</span></span><br><span class="line"><span class="keyword">SELECT</span> ... <span class="keyword">FROM</span> table1 <span class="keyword">RIGHT OUTER JOIN</span> table2 <span class="keyword">ON</span> conditional_expression ...</span><br><span class="line"></span><br><span class="line"># <span class="keyword">Outer</span> <span class="keyword">Join</span></span><br><span class="line"><span class="keyword">SELECT</span> ... <span class="keyword">FROM</span> table1 <span class="keyword">FULL</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> table2 <span class="keyword">ON</span> conditional_expression ...</span><br></pre></td></tr></table></figure>
+
+<h2 id="Unions"><a href="#Unions" class="headerlink" title="Unions"></a>Unions</h2><p>UNION 内部的每个 SELECT 语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每个 SELECT 语句中的列的顺序必须相同。</p>
+<p>UNION ALL 操作符可以连接两个有重复行的 SELECT 语句，默认地，UNION 操作符选取不同的值。如果允许重复的值，请使用 UNION ALL。</p>
+<figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column1 [, column2 ]</span><br><span class="line"><span class="keyword">FROM</span> table1 [, table2 ]</span><br><span class="line">[<span class="keyword">WHERE</span> condition]</span><br><span class="line"></span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> column1 [, column2 ]</span><br><span class="line"><span class="keyword">FROM</span> table1 [, table2 ]</span><br><span class="line">[<span class="keyword">WHERE</span> condition]</span><br><span class="line"></span><br><span class="line"># <span class="keyword">Union</span> <span class="keyword">ALL</span></span><br><span class="line"><span class="keyword">SELECT</span> column1 [, column2 ]</span><br><span class="line"><span class="keyword">FROM</span> table1 [, table2 ]</span><br><span class="line">[<span class="keyword">WHERE</span> condition]</span><br><span class="line"></span><br><span class="line"><span class="keyword">UNION</span> <span class="keyword">ALL</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> column1 [, column2 ]</span><br><span class="line"><span class="keyword">FROM</span> table1 [, table2 ]</span><br><span class="line">[<span class="keyword">WHERE</span> condition]</span><br></pre></td></tr></table></figure>
+
+<h2 id="Trigers"><a href="#Trigers" class="headerlink" title="Trigers"></a>Trigers</h2><figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TRIGGER</span> example_trigger <span class="keyword">AFTER</span> <span class="keyword">INSERT</span> <span class="keyword">ON</span> COMPANY <span class="keyword">FOR</span> <span class="keyword">EACH</span> <span class="keyword">ROW</span> <span class="keyword">EXECUTE</span> <span class="keyword">PROCEDURE</span> auditlogfunc();</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> pg_trigger;</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">trigger</span> $&#123;trigger_name&#125; <span class="keyword">on</span> $&#123;table_of_trigger_dependent&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h2><figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">INDEX</span> index_name <span class="keyword">ON</span> <span class="built_in">table_name</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">INDEX</span> index_name <span class="keyword">ON</span> <span class="built_in">table_name</span> (<span class="built_in">column_name</span>);</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">INDEX</span> index_name <span class="keyword">ON</span> <span class="built_in">table_name</span> (column1_name, column2_name);</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">UNIQUE</span> <span class="keyword">INDEX</span> index_name <span class="keyword">on</span> <span class="built_in">table_name</span> (<span class="built_in">column_name</span>);</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">INDEX</span> index_name <span class="keyword">on</span> <span class="built_in">table_name</span> (conditional_expression);</span><br><span class="line"></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">INDEX</span> index_name;</span><br></pre></td></tr></table></figure>
+
+<h2 id="AlterTable"><a href="#AlterTable" class="headerlink" title="AlterTable"></a>AlterTable</h2><figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="built_in">table_name</span> <span class="keyword">ADD</span> <span class="built_in">column_name</span> datatype;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="built_in">table_name</span> <span class="keyword">DROP</span> <span class="keyword">COLUMN</span> <span class="built_in">column_name</span>;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="built_in">table_name</span> <span class="keyword">ALTER</span> <span class="keyword">COLUMN</span> <span class="built_in">column_name</span> <span class="keyword">TYPE</span> datatype;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="built_in">table_name</span> <span class="keyword">ALTER</span> <span class="built_in">column_name</span> datatype <span class="keyword">NOT</span> <span class="keyword">NULL</span>;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="built_in">table_name</span> <span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> MyUniqueConstraint <span class="keyword">UNIQUE</span>(column1, column2...);</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="built_in">table_name</span> <span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> MyUniqueConstraint <span class="keyword">CHECK</span> (CONDITION);</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="built_in">table_name</span> <span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> MyPrimaryKey <span class="keyword">PRIMARY KEY</span> (column1, column2...);</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="built_in">table_name</span> <span class="keyword">DROP</span> <span class="keyword">CONSTRAINT</span> MyUniqueConstraint;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="built_in">table_name</span> <span class="keyword">DROP</span> <span class="keyword">CONSTRAINT</span> MyPrimaryKey;</span><br></pre></td></tr></table></figure>
+
+<h2 id="TRUNCATE-TABLE"><a href="#TRUNCATE-TABLE" class="headerlink" title="TRUNCATE TABLE"></a>TRUNCATE TABLE</h2><p><strong>TRUNCATE TABLE</strong><br>Used to delete the data of the table, but not the table structure.<br>用于删除表的数据，但不删除表结构。</p>
+<figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">TRUNCATE</span> <span class="keyword">TABLE</span>  <span class="built_in">table_name</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> [<span class="keyword">TEMP</span> | <span class="keyword">TEMPORARY</span>] <span class="keyword">VIEW</span> view_name <span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> column1, column2.....</span><br><span class="line"><span class="keyword">FROM</span> <span class="built_in">table_name</span></span><br><span class="line"><span class="keyword">WHERE</span> [condition];</span><br><span class="line"></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">VIEW</span> view_name;</span><br></pre></td></tr></table></figure>
+
+<h2 id="事务-Transaction"><a href="#事务-Transaction" class="headerlink" title="事务 Transaction"></a>事务 Transaction</h2><ul>
+<li>BEGIN;</li>
+<li>COMMIT;</li>
+<li>ROLLBACK;</li>
+</ul>
+<h3 id="事务的属性"><a href="#事务的属性" class="headerlink" title="事务的属性"></a>事务的属性</h3><p>事务具有以下四个标准属性，通常根据首字母缩写为 ACID：</p>
+<ul>
+<li>原子性（Atomicity）：事务作为一个整体被执行，包含在其中的对数据库的操作要么全部被执行，要么都不执行。</li>
+<li>一致性（Consistency）：事务应确保数据库的状态从一个一致状态转变为另一个一致状态。一致状态的含义是数据库中的数据应满足完整性约束。</li>
+<li>隔离性（Isolation）：多个事务并发执行时，一个事务的执行不应影响其他事务的执行。</li>
+<li>持久性（Durability）：已被提交的事务对数据库的修改应该永久保存在数据库中。</li>
+</ul>
+<figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LOCK</span> [ <span class="keyword">TABLE</span> ]</span><br><span class="line"><span class="type">name</span></span><br><span class="line"> <span class="keyword">IN</span></span><br><span class="line">lock_mode</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GRANT</span> privilege [, ...]</span><br><span class="line"><span class="keyword">ON</span> <span class="keyword">object</span> [, ...]</span><br><span class="line"><span class="keyword">TO</span> &#123; <span class="built_in">PUBLIC</span> | <span class="keyword">GROUP</span> <span class="keyword">group</span> | username &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">REVOKE</span> privilege [, ...]</span><br><span class="line"><span class="keyword">ON</span> <span class="keyword">object</span> [, ...]</span><br><span class="line"><span class="keyword">FROM</span> &#123; <span class="built_in">PUBLIC</span> | <span class="keyword">GROUP</span> groupname | username &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> runoob <span class="keyword">WITH</span> <span class="keyword">PASSWORD</span> <span class="string">&#x27;password&#x27;</span>;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> <span class="keyword">ON</span> COMPANY <span class="keyword">TO</span> runoob;</span><br><span class="line"><span class="keyword">REVOKE</span> <span class="keyword">ALL</span> <span class="keyword">ON</span> COMPANY <span class="keyword">FROM</span> runoob;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">USER</span> runoob;</span><br></pre></td></tr></table></figure>
+
+<h1 id="PostgreSQL-常用函数"><a href="#PostgreSQL-常用函数" class="headerlink" title="PostgreSQL 常用函数"></a>PostgreSQL 常用函数</h1><p>PostgreSQL 内置函数也称为聚合函数，用于对字符串或数字数据执行处理。</p>
+<p>下面是所有通用 PostgreSQL 内置函数的列表：</p>
+<ul>
+<li>COUNT 函数：用于计算数据库表中的行数。</li>
+<li>MAX 函数：用于查询某一特定列中最大值。</li>
+<li>MIN 函数：用于查询某一特定列中最小值。</li>
+<li>AVG 函数：用于计算某一特定列中平均值。</li>
+<li>SUM 函数：用于计算数字列所有值的总和。</li>
+<li>ARRAY 函数：用于输入值(包括null)添加到数组中。</li>
+<li>Numeric 函数：完整列出一个 SQL 中所需的操作数的函数。</li>
+<li>String 函数：完整列出一个 SQL 中所需的操作字符的函数。</li>
+</ul>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="https://maplepoet.github.io/hexo">枳暮</a>
+            <p>原文链接：<a href="https://maplepoet.github.io/hexo/2024/05/22/PostgreSQL/">https://maplepoet.github.io/hexo/2024/05/22/PostgreSQL/</a>
+            <p>发表日期：<a href="https://maplepoet.github.io/hexo/2024/05/22/PostgreSQL/">May 22nd 2024, 5:13:21 pm</a>
+            <p>更新日期：<a href="https://maplepoet.github.io/hexo/2024/05/22/PostgreSQL/">May 22nd 2024, 5:23:00 pm</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/hexo/2024/05/22/VueJS/" title="VueJS">
+                    <div class="nextTitle">VueJS</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/hexo/2024/03/07/Kubernetes/" title="Kubernetes">
+                    <div class="prevTitle">Kubernetes</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:aaronshan96@outlook.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PostgreSQL"><span class="toc-number">1.</span> <span class="toc-text">PostgreSQL</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-Database"><span class="toc-number">1.1.</span> <span class="toc-text">Create Database</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-Table"><span class="toc-number">1.2.</span> <span class="toc-text">Create Table</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Drop-Database"><span class="toc-number">1.3.</span> <span class="toc-text">Drop Database</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Select-Data-from-Database"><span class="toc-number">1.4.</span> <span class="toc-text">Select Data from Database</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Update-Delete-Data-in-Database"><span class="toc-number">1.5.</span> <span class="toc-text">Update&#x2F;Delete Data in Database</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#avg-sum-count"><span class="toc-number">1.6.</span> <span class="toc-text">avg, sum, count</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TimeStamp"><span class="toc-number">1.7.</span> <span class="toc-text">TimeStamp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WHERE-Condition"><span class="toc-number">1.8.</span> <span class="toc-text">WHERE Condition</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LIMIT-ORDER-BY-GROUP-BY-DISTINCT"><span class="toc-number">1.9.</span> <span class="toc-text">LIMIT, ORDER BY, GROUP BY, DISTINCT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Constraints-%E7%BA%A6%E6%9D%9F"><span class="toc-number">1.10.</span> <span class="toc-text">Constraints 约束</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Join"><span class="toc-number">1.11.</span> <span class="toc-text">Join</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unions"><span class="toc-number">1.12.</span> <span class="toc-text">Unions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Trigers"><span class="toc-number">1.13.</span> <span class="toc-text">Trigers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Index"><span class="toc-number">1.14.</span> <span class="toc-text">Index</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AlterTable"><span class="toc-number">1.15.</span> <span class="toc-text">AlterTable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TRUNCATE-TABLE"><span class="toc-number">1.16.</span> <span class="toc-text">TRUNCATE TABLE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1-Transaction"><span class="toc-number">1.17.</span> <span class="toc-text">事务 Transaction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-number">1.17.1.</span> <span class="toc-text">事务的属性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PostgreSQL-%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">PostgreSQL 常用函数</span></a></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 11
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2024 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/22</span>
+            <a class="archive-post-title" href="/hexo/2024/05/22/AWS-Solution-Architect/">AWS_Solution_Architect</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/22</span>
+            <a class="archive-post-title" href="/hexo/2024/05/22/PostgreSQL/">PostgreSQL</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/22</span>
+            <a class="archive-post-title" href="/hexo/2024/05/22/VueJS/">VueJS</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span>
+            <a class="archive-post-title" href="/hexo/2024/03/07/AWS/">AWS</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span>
+            <a class="archive-post-title" href="/hexo/2024/03/07/Ansible/">Ansible</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span>
+            <a class="archive-post-title" href="/hexo/2024/03/07/Docker/">Docker</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span>
+            <a class="archive-post-title" href="/hexo/2024/03/07/Kafka-Zookeeper/">Kafka Zookeeper</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span>
+            <a class="archive-post-title" href="/hexo/2024/03/07/Kubernetes/">Kubernetes</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span>
+            <a class="archive-post-title" href="/hexo/2024/03/07/Terraform/">Terraform</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span>
+            <a class="archive-post-title" href="/hexo/2024/03/07/WSL-usage/">WSL usage</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span>
+            <a class="archive-post-title" href="/hexo/2024/03/07/hello-world/">Hello World</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="WSL">
+                <span class="iconfont-archer">&#xe606;</span>
+                WSL
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Linux">
+                <span class="iconfont-archer">&#xe606;</span>
+                Linux
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Windows">
+                <span class="iconfont-archer">&#xe606;</span>
+                Windows
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/hexo/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "https://maplepoet.github.io/hexo",
+        root: siteMetaRoot,
+        author: "枳暮"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/hexo/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/hexo/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/hexo/scripts/share.js?v=20211217" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>
