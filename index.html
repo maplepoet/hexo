@@ -450,12 +450,7 @@
                 <span class="abstract-title-text">AWS_Solution_Architect</span>
             </a>
             <div class="abstract-content">
-                <h1 id="IAM"><a href="#IAM" class="headerlink" title="IAM"></a>IAM</h1><h1 id="EC2"><a href="#EC2" class="headerlink" title="EC2"></a>EC2</h1><p>Security Group</p>
-<h2 id="Placement-Groups"><a href="#Placement-Groups" class="headerlink" title="Placement Groups"></a>Placement Groups</h2><p>Cluster: a low-latency group in a single Availability Zone</p>
-<p>spread: across underlying hardware</p>
-<p>Partition: across many different partitions (which rely on different sets of racks) within an AZ.</p>
-<h2 id="EC2-Hibernate"><a href="#EC2-Hibernate" class="headerlink" title="EC2 Hibernate:"></a>EC2 Hibernate:</h2><p>in-memory (RAM), Usage: Long-running processing, Saving the RAM state, The root EBS volume must be encrypted;</p>
-<h2 id="Instance-Type"><a href="#Instance-Type" class="headerlink" title="Instance Type"></a>Instance Type</h2>
+                <p>The AWS Certified Solutions Architect – Associate certification demonstrates your knowledge and skills across a wide range of AWS services. As an associate-level certification, it focuses on designing cost-effective and high-performance solutions. Key areas covered include understanding the AWS Well-Architected Framework, deploying and managing workloads on AWS, implementing security controls, and using the AWS Management Console and Command Line Interface (CLI).</p>
             </div>
             <!-- read more -->
             
@@ -483,324 +478,7 @@
                 <span class="abstract-title-text">VueJS</span>
             </a>
             <div class="abstract-content">
-                <h1 id="VueJS"><a href="#VueJS" class="headerlink" title="VueJS"></a>VueJS</h1><ul>
-<li><p>script</p>
-<ul>
-<li>CreateApp<ul>
-<li>props （for Component）<ul>
-<li>props初始化后不能在methods修改</li>
-</ul>
-</li>
-<li>data</li>
-<li>methods</li>
-<li>watch. can use a data  as a function name for example: counter(value){if value &gt; 5 …}</li>
-<li>computed</li>
-<li>component</li>
-<li>emits</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>templates</p>
-<ul>
-<li>with <slot></slot></li>
-</ul>
-</li>
-<li><p>event</p>
-</li>
-<li><p>v-html</p>
-</li>
-<li><p>v-once</p>
-</li>
-<li><p>:href&#x3D;”<a target="_blank" rel="noopener" href="https://www.google.com/">https://www.google.com</a>“ or v-bind:href&#x3D;”xxx”</p>
-</li>
-<li><p>v-bind</p>
-<ul>
-<li>:class</li>
-<li>:disabled</li>
-</ul>
-</li>
-<li><p>v-if v-else v-else-if</p>
-</li>
-<li><p>v-show. if the conditions is not fulfilled, then the element”s display is none</p>
-</li>
-<li><p>V-for</p>
-<ul>
-<li><strong>key</strong></li>
-</ul>
-</li>
-<li><p>v-on</p>
-<ul>
-<li>v-on:click (right&#x2F;left)</li>
-<li>v-on:input &#x2F; v-on:keyup.enter</li>
-<li>v-on:submit.prevent</li>
-<li>v-on:blur</li>
-</ul>
-</li>
-<li><p>v-model  双向， input 和 text&#x2F;其他</p>
-<ul>
-<li>input (text &#x2F; number &#x2F; textarea). $refs.xxx.value is also a string</li>
-<li>select -option (dropdown)</li>
-<li>input type&#x3D;checkbox, must use with value&#x3D;”xxx” &#x2F; single checkbox use a boolean value</li>
-</ul>
-</li>
-<li><p>$ref</p>
-</li>
-<li><p><strong>$emit</strong> 和 $props 方向相反</p>
-<ul>
-<li>child component使用parents的methods</li>
-<li>component添加 this.$emit(“xxx”), parent Component使用@xxx&#x3D;”yyy”, yyy是parent Component的methods</li>
-</ul>
-</li>
-<li><p><strong>provide, inject</strong>需要父子关系 父provide 子inject, 相当于父中要引用子component</p>
-</li>
-<li><p>Scoped Styling</p>
-</li>
-<li><p>Slots</p>
-<ul>
-<li>放在component里被引用成template</li>
-<li>scoped</li>
-<li>Template v-slot:default or v-shot:”name” or #default &#x2F; #name</li>
-</ul>
-</li>
-<li><p>Dynamic component</p>
-<ul>
-<li>:is  引用不同的component</li>
-<li><keepalive></keepalive></li>
-<li>‘include’ and ‘exclude’</li>
-<li>‘max’</li>
-</ul>
-</li>
-<li><p>Teleport</p>
-<ul>
-<li>to&#x3D;”body”</li>
-</ul>
-</li>
-<li><p>$refs</p>
-<ul>
-<li>ref&#x3D;”xxx”</li>
-<li>this.$refs.xxx.value</li>
-</ul>
-</li>
-<li><p>Lifecycle Hooks</p>
-<ul>
-<li>beforeCreate</li>
-<li>created</li>
-<li>beforeMount</li>
-<li>mounted</li>
-<li>beforeUpdate</li>
-<li>updated</li>
-<li>beforeUnmount</li>
-<li>unmounted</li>
-<li>errorCaptured</li>
-<li>renderTracked</li>
-<li>renderTriggered</li>
-<li>activated</li>
-<li>deactivated</li>
-<li>serverPrefetch</li>
-</ul>
-</li>
-<li><p>Components</p>
-<ul>
-<li>Kebab-case, camelCase, PascalCase, snake_case</li>
-<li>Name</li>
-<li>component with v-for</li>
-</ul>
-</li>
-<li><p>Provide&#x2F;Inject</p>
-</li>
-<li><p>Form Inputs</p>
-<ul>
-<li>checkbox<ul>
-<li>单个。true&#x2F;false</li>
-<li>多个。 value，一个array</li>
-</ul>
-</li>
-<li>dropdown</li>
-<li>blur</li>
-</ul>
-</li>
-<li><p>Fetch()</p>
-<ul>
-<li>Post<ul>
-<li>Fetch(url,{ method:’POST’, headers: { ‘Content-Type’: xxx}, body: JSON.stringify({name:xxx rating:xxx})})</li>
-</ul>
-</li>
-<li>Get<ul>
-<li>Fetch(url ).then ( (response)&#x3D;&gt; {if (response.ok) {return response.json();}}).then( (data)&#x3D;&gt;{ console.log(data)}); .catch((error) &#x3D;&gt; {});</li>
-</ul>
-</li>
-<li>const response &#x3D; await fetch(), async before the function name<ul>
-<li>const responseData &#x3D; await response.json(); </li>
-<li>if (!response.ok) { error }</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Route (158-179)</p>
-<ul>
-<li>import {createRouter} from ‘vue-router’</li>
-<li>app.use(router)</li>
-<li>navigation<ul>
-<li>nav</li>
-<li>herf</li>
-<li>this.$router.push(“&#x2F;xxx”)</li>
-<li>linkActiveClass: ‘xxx’</li>
-<li><router-view></router-view></li>
-<li><router-link to="xxx">. 默认是anchor tag <a> or <router-lin :to="'/xxx/' + id"></router-lin></a></router-link></li>
-<li>add props:true in the routes</li>
-</ul>
-</li>
-<li><strong>this.$route.params.xxx</strong></li>
-<li>watch: { $route(newRoute){}}</li>
-<li>redirect, alias,</li>
-<li>Path: “&#x2F;:notFound(.*)” </li>
-<li>Nested Route, children:[] in the routes</li>
-<li>named routes. return {name: ‘’, params: {id: xxx}, query:{ sort: ‘asc’}}</li>
-<li>Query with route “?sort&#x3D;asc”, this.$route.query</li>
-<li>name router-view (multiple components)</li>
-<li>scrollBehavior(to, from, savedPosition)</li>
-<li>Navigation Guard,  router.beforeEach(function(to, from, next){});</li>
-<li>beforeEnter(in the routes), in the component methods: beforeRouteEnter beforeRouteUpdate beforeRouteLeave</li>
-<li>Global afterEach Guard router.afterEach(function(to, from){});</li>
-<li>meta: { requiresAuth: true }. in the routes</li>
-<li>seperate router.js or vue. Export default router.</li>
-</ul>
-</li>
-<li><p>Transition， TransitionGroup</p>
-<ul>
-<li>only one child element</li>
-<li>v-enter-from，v-enter-active，v-enter-to<ul>
-<li>V-enter-active{ Animation: xxx 0.5s xxx}</li>
-</ul>
-</li>
-<li>v-leave-from，v-leave-to</li>
-<li>name&#x3D;”xxx”. Xxx-enter-xxx &#x2F; xxx-leave-xxx<ul>
-<li>Or enter-to-class&#x3D;”” leave-to-class&#x3D;””</li>
-</ul>
-</li>
-<li>if two element, use v-if, v-else to make sure only one element show in the transition</li>
-<li>mode&#x3D;”in-out&#x2F;out-in”</li>
-<li>Event: beforeEnter(el), beforeLeave(el). Enter(el, done) {done();}</li>
-</ul>
-</li>
-<li><p>Animation</p>
-<ul>
-<li>.animate { tranform: xxx}</li>
-<li>@keyframe xxx {from&#x2F;to or 0%-&gt;100%} </li>
-<li>Animation List with TransitionGroup <transition-group tag="ul"><ul>
-<li>xxx-move { transition: tranfrom 0.8s ease}</li>
-</ul>
-</transition-group></li>
-<li>:css&#x3D;”false”</li>
-<li>route changes, use v-slot with route-view, use :is&#x3D;”xxx.Component”<ul>
-<li>transition name&#x3D;”route” , Route-enter-active, route-leave-active, inside the <router-view></router-view></li>
-<li><router-view> use v-slot, then inside transition use <component :is="xxx.Component"> </component></router-view></li>
-<li>Router.isReady().then(function(){app.mount(“#app”)});</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Vuex</p>
-<ul>
-<li>import “createStore” from ‘vuex’; </li>
-<li>const store &#x3D; createStore({ state() { return { counter:0}}})<ul>
-<li>this.$store.state.counter,  glabal value</li>
-</ul>
-</li>
-<li><strong>mutations</strong><ul>
-<li>in state(), mutations: { xxx(<strong>state</strong>) { }  or yyy(state, payload) { payload.value }}</li>
-<li>this.$store.commit(“xxx”) or <strong>this.$store.commit</strong>(‘yyy’, {value: zzz})</li>
-</ul>
-</li>
-<li><strong>Getters</strong><ul>
-<li>in state(), getters: { xxx(<strong>state</strong>){ return state.xxx; }} or  { yyy(state&#x2F;_, getters){ getters.xxx }}</li>
-<li><strong>this.$store.getters</strong>.xxx</li>
-</ul>
-</li>
-<li><strong>Actions</strong><ul>
-<li>between mutation and getters</li>
-<li>in state(), can use the same function name in mutation, xxx(<strong>context</strong>) { context.commit(‘xxx’, payload); } xxx-&gt; mutation</li>
-<li>dispatch from other actions</li>
-<li>add timeout in the action asynchronous</li>
-<li><strong>this.$store.dispatch({ })</strong></li>
-</ul>
-</li>
-<li>Mapper<ul>
-<li>import { mapGetters } from ‘vuex’;</li>
-<li>computed: { …mapGetters([‘xxx’])}</li>
-<li>not to use this.$store.getters.xxx</li>
-<li>import  { mapActions} from ‘vuex’;  …mapActions([‘xxx’])</li>
-<li>…mapActions({ inc:’xxx’, dec:’yyy’}) rename the action function name</li>
-</ul>
-</li>
-<li>organize own store with module<ul>
-<li>const store &#x3D; createStore({modules: { xxx:  yyy }}) xxx-&gt;new name yyy-&gt; own module</li>
-<li>in the getters: xxx(state, getters,  rootState, rootGetters)</li>
-<li>namespace the own module:  &#x3D;{namespace: true},<ul>
-<li>this.$store.getters[‘xxx&#x2F;yyy’].  xxx-&gt; namespace, yyy-&gt;function name</li>
-<li>computed: { …mapGetters(‘xxx’, [‘yyy’])}</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>seperate store.js file<ul>
-<li>app.use(store)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><del>Spinner</del></p>
-</li>
-<li><p>cache http response data</p>
-</li>
-<li><p>Authentication &#x2F; SPA Single-Page Application</p>
-<ul>
-<li>401 Unauthorized</li>
-<li>404 Not found</li>
-</ul>
-</li>
-<li><p>Composition API</p>
-<ul>
-<li><p>setup()</p>
-<ul>
-<li>props</li>
-<li>context<ul>
-<li>attrs, slot, emit, expose</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>data, methods, watch, computed</p>
-<ul>
-<li>ref, reactive (for Object), toRefs</li>
-<li>computed, readonly, watchEffect, watchPostEffect, watchSyncEffect, watch</li>
-</ul>
-</li>
-<li><p>Route</p>
-<ul>
-<li>using props for routing</li>
-<li>import {useRouter, useLink } from “vue-router”<ul>
-<li>const router &#x3D; useRouter();  router.push(“xxx”)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>vuex</p>
-<ul>
-<li>store.  import { useStore } from ‘vuex’;</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Composables</p>
-<ul>
-<li>make own hook</li>
-<li>export funtion xxx() { return {xxx}}</li>
-</ul>
-</li>
-</ul>
-
+                <p>Vue.js strikes a balance between simplicity, performance, and flexibility. Its reactive nature, composable components, and approachable API make it a popular choice for web development. If you’re interested in exploring Vue.js further, check out the official Vue.js website for comprehensive documentation and examples.</p>
             </div>
             <!-- read more -->
             
@@ -828,16 +506,7 @@
                 <span class="abstract-title-text">PostgreSQL</span>
             </a>
             <div class="abstract-content">
-                <h1 id="PostgreSQL"><a href="#PostgreSQL" class="headerlink" title="PostgreSQL"></a>PostgreSQL</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run --name my-postgres -e POSTGRES_PASSWORD=[YOURPASSWORD] -p 5432:5432 -d postgres</span><br><span class="line"></span><br><span class="line">docker <span class="built_in">exec</span> -it my-postgres psql -U postgres</span><br></pre></td></tr></table></figure>
-
-<p>COPY File</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">cp</span> yourfile.sql my-postgres:/yourfile.sql</span><br><span class="line"></span><br><span class="line">docker <span class="built_in">exec</span> -it my-postgres bash</span><br><span class="line"></span><br><span class="line">psql -U postgres -d your_database_name -f /yourfile.sql</span><br></pre></td></tr></table></figure>
-
-<h2 id="Create-Database"><a href="#Create-Database" class="headerlink" title="Create Database"></a>Create Database</h2><figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> dbname;</span><br><span class="line">\l</span><br><span class="line">\c dbname</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">DATABASE</span> [ <span class="keyword">IF</span> <span class="keyword">EXISTS</span> ] <span class="type">name</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Create-Table"><a href="#Create-Table" class="headerlink" title="Create Table"></a>Create Table</h2><figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="built_in">table_name</span>(</span><br><span class="line">   column1 datatype,</span><br><span class="line">   column2 datatype,</span><br><span class="line">   column3 datatype,</span><br><span class="line">   .....</span><br><span class="line">   columnN datatype,</span><br><span class="line">   <span class="keyword">PRIMARY KEY</span>( 一个或多个列 )</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
-<h2 id="Drop-Database"><a href="#Drop-Database" class="headerlink" title="Drop Database"></a>Drop Database</h2><figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="built_in">table_name</span>;</span><br></pre></td></tr></table></figure>
+                <p>PostgreSQL is a powerful, open-source object-relational database system that combines the SQL language with numerous features for safely storing and scaling complex data workloads. It originated in 1986 as part of the POSTGRES project at the University of California, Berkeley. With over 35 years of active development, PostgreSQL has earned a strong reputation for its proven architecture, reliability, data integrity, robust feature set, and extensibility. It runs on major operating systems, adheres to ACID compliance, and includes add-ons like the popular PostGIS geospatial database extender. Developers appreciate its extensibility, allowing custom data types and functions without recompiling the database. PostgreSQL conforms to SQL standards and continues to evolve, making it a top choice for many organizations. </p>
             </div>
             <!-- read more -->
             
@@ -865,20 +534,7 @@
                 <span class="abstract-title-text">Kubernetes</span>
             </a>
             <div class="abstract-content">
-                <h1 id="Kubernetes"><a href="#Kubernetes" class="headerlink" title="Kubernetes"></a>Kubernetes</h1><p>runs on top of Docker as a set of APIs in containers</p>
-<p><code>kubectl</code> command</p>
-<h2 id="Kubernetes-vs-swarm"><a href="#Kubernetes-vs-swarm" class="headerlink" title="Kubernetes vs swarm"></a>Kubernetes vs swarm</h2><p>both container orchestrators</p>
-<p>both are solid platforms with vendor backing</p>
-<p>Swarm: easier to deploy&#x2F;manage</p>
-<p>Kubernetes: more features and flexibility </p>
-<h3 id="Advantage-of-swarm"><a href="#Advantage-of-swarm" class="headerlink" title="Advantage of swarm"></a>Advantage of swarm</h3><ul>
-<li>come with docker,single vendor container platform</li>
-<li>Easier orchestrator to deploy&#x2F;mange </li>
-<li>follow 80&#x2F;20 rule 20% of features for 80% of use cases</li>
-<li>run anywhere docker does</li>
-<li>secure by defalult</li>
-<li>easier to troubleshoot</li>
-</ul>
+                <p>Kubernetes, also known as K8s, is an open-source system for automating deployment, scaling, and management of containerized applications. It groups containers that make up an application into logical units for easy management and discovery. Originally designed by Google, the project is now maintained by a worldwide community of contributors, with the trademark held by the Cloud Native Computing Foundation. Kubernetes assembles one or more computers, either virtual machines or bare metal, into a cluster that can run workloads in containers. It works with various container runtimes, such as containerd and CRI-O. Its suitability for running and managing workloads of all sizes and styles has led to widespread adoption in clouds and data centers. Kubernetes is widely deployed across companies including Google, Microsoft, Amazon, Apple, Meta, Nvidia, Reddit, Pinterest, and thousands of other companies.</p>
             </div>
             <!-- read more -->
             
@@ -906,27 +562,7 @@
                 <span class="abstract-title-text">Docker</span>
             </a>
             <div class="abstract-content">
-                <h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><h2 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">docker container run -d --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=True mysql</span><br><span class="line"><span class="comment"># Run the container</span></span><br><span class="line">docker container logs xxx</span><br><span class="line"><span class="comment"># show the logs</span></span><br><span class="line">docker container top xxx</span><br><span class="line"><span class="comment"># process list in one container</span></span><br><span class="line">docker container inspect xxx</span><br><span class="line"><span class="comment"># show metadata about the container (startup, config, volumes, networking, etc)</span></span><br><span class="line">docker container stats xxx</span><br><span class="line"><span class="comment"># Show live performance data for all containers</span></span><br><span class="line">dockerr container run --<span class="built_in">rm</span> -it --name namexx -p 8080:80 xxx </span><br><span class="line"><span class="comment"># i means interactively, t means pseudo tty.</span></span><br><span class="line"><span class="comment"># Start --it container interactively </span></span><br><span class="line"><span class="comment"># after exit, docker container start -ai xxx to enter the container</span></span><br><span class="line"></span><br><span class="line">docker container <span class="built_in">exec</span> -it xxx <span class="string">&quot;commands&quot;</span></span><br><span class="line"><span class="comment"># run additional command in existing container</span></span><br><span class="line"></span><br><span class="line">docker container port xxx (name)</span><br><span class="line"></span><br><span class="line">docker container inspect --format <span class="string">&#x27;&#123;&#123;.NetworkSettings.IPAddress &#125;&#125;&#x27;</span> xxx (name)</span><br><span class="line"><span class="comment"># a common option for formatting the output of commands using &quot;Go templates&quot;</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="Network"><a href="#Network" class="headerlink" title="Network"></a>Network</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">docker network <span class="built_in">ls</span></span><br><span class="line"><span class="comment"># List all docker networks</span></span><br><span class="line">docker network <span class="built_in">ls</span> --network bridge </span><br><span class="line"><span class="comment"># default docker virtual network, which is NAT&quot;ed behind the Host IP</span></span><br><span class="line">docker network <span class="built_in">ls</span> --network host</span><br><span class="line"><span class="comment"># It gains performance by skipping virtual machine but sacrifices security of container model</span></span><br><span class="line"></span><br><span class="line">docker entwork <span class="built_in">ls</span> --network none</span><br><span class="line"><span class="comment"># removes eth0 and only leaves you with localhost interface in container</span></span><br><span class="line"></span><br><span class="line">docker network inspect</span><br><span class="line">docker network create --driver xxx</span><br><span class="line"><span class="comment"># Spawns a new virtual network for you to attach containers to</span></span><br><span class="line"></span><br><span class="line">docker container run ... --network xxx</span><br><span class="line"></span><br><span class="line">docker network connect xxx(network) xxx(container)</span><br><span class="line"></span><br><span class="line">docker network disconnect</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="Docker-Network-DNS"><a href="#Docker-Network-DNS" class="headerlink" title="Docker Network DNS"></a>Docker Network DNS</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker container <span class="built_in">exec</span> -it my_nginx ping old_ngingx (name of other container)</span><br><span class="line"><span class="comment"># Assignment: Round Robin Test</span></span><br><span class="line"></span><br><span class="line">docker image <span class="built_in">history</span> nginx:latest</span><br><span class="line"><span class="comment"># show layers of changes made in image </span></span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker pull</span><br><span class="line">docker login</span><br><span class="line">docker tag</span><br><span class="line">docker push</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="PRUNE"><a href="#PRUNE" class="headerlink" title="PRUNE"></a>PRUNE</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">docker system <span class="built_in">df</span> </span><br><span class="line"><span class="comment"># see space usage</span></span><br><span class="line"></span><br><span class="line">docker system prune</span><br><span class="line"><span class="comment"># clean up everything you&quot;re not currently using</span></span><br><span class="line"></span><br><span class="line">docker image prune -a</span><br><span class="line"><span class="comment"># remove all iamges you&#x27;re not using</span></span><br><span class="line"></span><br><span class="line">docker image prune</span><br><span class="line"><span class="comment"># clean up just &quot;dangling&quot; images</span></span><br></pre></td></tr></table></figure>
+                <p>Docker is an open platform for developing, shipping, and running applications. It simplifies the process of building, running, managing, and distributing software by virtualizing the operating system of the host computer. </p>
             </div>
             <!-- read more -->
             
@@ -954,16 +590,7 @@
                 <span class="abstract-title-text">Terraform</span>
             </a>
             <div class="abstract-content">
-                <h1 id="Basic-Commands"><a href="#Basic-Commands" class="headerlink" title="Basic Commands"></a>Basic Commands</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">terraform init</span><br><span class="line"></span><br><span class="line">terraform apply <span class="comment"># always apply the files</span></span><br><span class="line"></span><br><span class="line">terraform destroy -target xxx.xxx</span><br><span class="line"></span><br><span class="line">terraform apply -auto-approve</span><br><span class="line"></span><br><span class="line">terraform destroy</span><br></pre></td></tr></table></figure>
-
-<h1 id="Terraform-State"><a href="#Terraform-State" class="headerlink" title="Terraform State"></a>Terraform State</h1><p>tfstate file</p>
-<p>Pass a variable</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">terraform apply</span><br><span class="line"></span><br><span class="line">terraform apply -var <span class="string">&quot;xxx=xxx&quot;</span></span><br><span class="line"></span><br><span class="line">terraform apply -var-file terraform-dev.tfvars</span><br></pre></td></tr></table></figure>
-
-<h1 id="Set-credentials"><a href="#Set-credentials" class="headerlink" title="Set credentials"></a>Set credentials</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> AWS_SECERT_ACCESS=xxx</span><br><span class="line">​</span><br><span class="line"><span class="built_in">export</span> AWS_ACCESS_ID=xxx</span><br></pre></td></tr></table></figure>
-
-<p>or use aws configure command</p>
-<p>global variable</p>
+                <p>Terraform is an infrastructure as code (IaC) tool that enables developers to define cloud and on-premises resources using human-readable configuration files. With Terraform, you can build, modify, and version your infrastructure efficiently.</p>
             </div>
             <!-- read more -->
             
@@ -983,6 +610,7 @@
         
         
             
+            
         
         <article class="index-post">
             <a class="abstract-title" href="/hexo/2024/03/07/Ansible/">
@@ -990,13 +618,13 @@
                 <span class="abstract-title-text">Ansible</span>
             </a>
             <div class="abstract-content">
-                
+                <p>Ansible is an open-source IT automation engine that enables infrastructure as code. It provides a suite of software tools for provisioning, configuration management, and application deployment. Originally developed by Michael DeHaan in 2012, Ansible was later acquired by Red Hat. Unlike some other configuration management tools, Ansible follows an agentless architecture, meaning it doesn’t require software installation on the controlled nodes. Instead, it relies on temporary remote connections via SSH or Windows Remote Management. Ansible’s inventory is stored in plain text files and can be dynamically sourced from cloud-based formats like YAML or INI. It’s widely used for automating tasks across Unix-like systems and Microsoft Windows.</p>
             </div>
             <!-- read more -->
             
             <div class="abstract-post-meta">
                 <!-- date -->
-                <div class="abstract-date" title="Last updated: 2024/03/07">
+                <div class="abstract-date" title="Last updated: 2024/05/22">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2024/03/07</span>
                 </div>
                 <!-- tags -->
@@ -1010,6 +638,7 @@
         
         
             
+            
         
         <article class="index-post">
             <a class="abstract-title" href="/hexo/2024/03/07/AWS/">
@@ -1017,13 +646,22 @@
                 <span class="abstract-title-text">AWS</span>
             </a>
             <div class="abstract-content">
-                
+                <p>Amazon Web Services (AWS) is the world’s most comprehensive and broadly adopted cloud platform. It offers over 200 fully featured services, available from data centers globally. Here are some key points about AWS:</p>
+<ul>
+<li>Compute Services: AWS Elastic Compute Cloud (EC2) allows developers to build, deploy, and scale applications in the cloud. EC2 instances provide virtual servers with flexible configurations.</li>
+<li>Storage: AWS provides various storage services, including Amazon S3 for web data storage and Amazon EBS for block storage. These services offer scalability, durability, and low-latency access.</li>
+<li>Databases: AWS offers managed database services like Amazon RDS (Relational Database Service) and Amazon DynamoDB (NoSQL database). These services are cost-efficient, secure, and scalable.</li>
+<li>Networking and Content Delivery: AWS provides Virtual Private Cloud (VPC) for network isolation, Amazon CloudFront for content delivery, and Route 53 for domain management.</li>
+<li>Developer Tools: AWS offers tools like AWS Lambda (serverless computing), Amazon CodeDeploy (deployment automation), and Amazon CloudWatch (monitoring and logging).</li>
+<li>Security and Compliance: AWS is architected for security, with over 300 security, compliance, and governance services. It supports 143 security standards and certifications.</li>
+<li>Innovation: AWS continually introduces new technologies, such as serverless computing and machine learning services like Amazon SageMaker.</li>
+</ul>
             </div>
             <!-- read more -->
             
             <div class="abstract-post-meta">
                 <!-- date -->
-                <div class="abstract-date" title="Last updated: 2024/03/07">
+                <div class="abstract-date" title="Last updated: 2024/05/22">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2024/03/07</span>
                 </div>
                 <!-- tags -->
@@ -1045,19 +683,7 @@
                 <span class="abstract-title-text">Kafka Zookeeper</span>
             </a>
             <div class="abstract-content">
-                <h1 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h1><h2 id="Installing-Kafka"><a href="#Installing-Kafka" class="headerlink" title="Installing Kafka"></a><strong>Installing Kafka</strong></h2><p>After successfully installing Homebrew, we can proceed with the installation of Kafka. To do this, execute the command provided below in the terminal. This command will automatically install the correct version of JDK required for running Kafka.</p>
-<p>The installation path for Homebrew may vary depending on the chip being used. For Macs with Intel, Kafka will be installed under <code>/usr/local/</code>, while for Macs with Apple silicon, it will be installed under <code>opt/homebrew/</code>.</p>
-<ul>
-<li>Binaries and scripts will be in <code>/usr/local/bin</code> or <code>opt/homebrew/bin</code></li>
-<li>Kafka configurations will be in <code>/usr/local/etc/kafka</code> or <code>opt/homebrew/etc/kafka</code></li>
-<li>Zookeeper configuration will be in <code>/usr/local/etc/zookeeper</code> or <code>opt/homebrew/etc/zookeeper</code></li>
-<li>The <code>log.dirs</code> config (the location for Kafka data) will be set to <code>/usr/local/var/lib/kafka-logs </code>or <code>opt/homebrew/var/lib/kafka-logs</code></li>
-</ul>
-<h2 id="Starting-Kafka"><a href="#Starting-Kafka" class="headerlink" title="Starting Kafka"></a><strong>Starting Kafka</strong></h2><p>Starting services is a breeze with Homebrew. To start Kafka, run <code>brew services start kafka</code> in the terminal. This will launch Kafka on port 9092. For more information on this service, run <code>brew services info kafka</code>, or to check port usage, run <code>lsof -i:9092</code> in the terminal window.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">zookeeper-server-start /usr/local/etc/kafka/zookeeper.properties</span><br><span class="line"></span><br><span class="line">kafka-server-start /usr/local/etc/kafka/server.properties</span><br></pre></td></tr></table></figure>
-
-<p>Great job! You have successfully launched Kafka on your computer. With Brew, Zookeeper will be automatically managed.</p>
-<p>You can now create a topic with some partitions, set up a producer, and send messages to the consumers.</p>
+                <p>Kafka is a distributed streaming platform designed for handling real-time data streams and building data pipelines.<br>ZooKeeper is a centralized service that provides distributed coordination and maintains configuration information.  </p>
             </div>
             <!-- read more -->
             
@@ -1085,21 +711,13 @@
                 <span class="abstract-title-text">WSL usage</span>
             </a>
             <div class="abstract-content">
-                <p>WSL Usgae</p>
-<ol>
-<li><code>wsl --status</code> Show the status of Windows Subsystem for Linux</li>
-<li><code>wsl --list --online</code> For a list of valid distributions</li>
-<li><code>wsl --install -d Ubuntu22.04</code> Install addtional Windows Subsystem for Linux Distributions</li>
-<li><code>wsl --distribution UBuntu-22.04 --user ubuntu</code> Run the specified distribution as the specified user</li>
-<li><code>wsl --terminate Ubuntu22.04</code> Terminate the specified distribution</li>
-</ol>
-
+                <p>Windows Subsystem for Linux (WSL) is a feature of Windows 10 that bridges the gap between Windows and Linux environments. With WSL, you can run native Linux command-line tools directly on your Windows machine without the need for a separate virtual machine or dual booting. It provides a seamless experience for developers who want to work with both Windows and Linux simultaneously. </p>
             </div>
             <!-- read more -->
             
             <div class="abstract-post-meta">
                 <!-- date -->
-                <div class="abstract-date" title="Last updated: 2024/03/07">
+                <div class="abstract-date" title="Last updated: 2024/05/22">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2024/03/07</span>
                 </div>
                 <!-- tags -->
@@ -1346,12 +964,6 @@
         
         
     
-        
-        
-        
-        
-        
-        
         
         
         

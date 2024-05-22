@@ -435,20 +435,7 @@
                 <span class="abstract-title-text">Kubernetes</span>
             </a>
             <div class="abstract-content">
-                <h1 id="Kubernetes"><a href="#Kubernetes" class="headerlink" title="Kubernetes"></a>Kubernetes</h1><p>runs on top of Docker as a set of APIs in containers</p>
-<p><code>kubectl</code> command</p>
-<h2 id="Kubernetes-vs-swarm"><a href="#Kubernetes-vs-swarm" class="headerlink" title="Kubernetes vs swarm"></a>Kubernetes vs swarm</h2><p>both container orchestrators</p>
-<p>both are solid platforms with vendor backing</p>
-<p>Swarm: easier to deploy&#x2F;manage</p>
-<p>Kubernetes: more features and flexibility </p>
-<h3 id="Advantage-of-swarm"><a href="#Advantage-of-swarm" class="headerlink" title="Advantage of swarm"></a>Advantage of swarm</h3><ul>
-<li>come with docker,single vendor container platform</li>
-<li>Easier orchestrator to deploy&#x2F;mange </li>
-<li>follow 80&#x2F;20 rule 20% of features for 80% of use cases</li>
-<li>run anywhere docker does</li>
-<li>secure by defalult</li>
-<li>easier to troubleshoot</li>
-</ul>
+                <p>Kubernetes, also known as K8s, is an open-source system for automating deployment, scaling, and management of containerized applications. It groups containers that make up an application into logical units for easy management and discovery. Originally designed by Google, the project is now maintained by a worldwide community of contributors, with the trademark held by the Cloud Native Computing Foundation. Kubernetes assembles one or more computers, either virtual machines or bare metal, into a cluster that can run workloads in containers. It works with various container runtimes, such as containerd and CRI-O. Its suitability for running and managing workloads of all sizes and styles has led to widespread adoption in clouds and data centers. Kubernetes is widely deployed across companies including Google, Microsoft, Amazon, Apple, Meta, Nvidia, Reddit, Pinterest, and thousands of other companies.</p>
             </div>
             <!-- read more -->
             
@@ -476,27 +463,7 @@
                 <span class="abstract-title-text">Docker</span>
             </a>
             <div class="abstract-content">
-                <h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><h2 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">docker container run -d --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=True mysql</span><br><span class="line"><span class="comment"># Run the container</span></span><br><span class="line">docker container logs xxx</span><br><span class="line"><span class="comment"># show the logs</span></span><br><span class="line">docker container top xxx</span><br><span class="line"><span class="comment"># process list in one container</span></span><br><span class="line">docker container inspect xxx</span><br><span class="line"><span class="comment"># show metadata about the container (startup, config, volumes, networking, etc)</span></span><br><span class="line">docker container stats xxx</span><br><span class="line"><span class="comment"># Show live performance data for all containers</span></span><br><span class="line">dockerr container run --<span class="built_in">rm</span> -it --name namexx -p 8080:80 xxx </span><br><span class="line"><span class="comment"># i means interactively, t means pseudo tty.</span></span><br><span class="line"><span class="comment"># Start --it container interactively </span></span><br><span class="line"><span class="comment"># after exit, docker container start -ai xxx to enter the container</span></span><br><span class="line"></span><br><span class="line">docker container <span class="built_in">exec</span> -it xxx <span class="string">&quot;commands&quot;</span></span><br><span class="line"><span class="comment"># run additional command in existing container</span></span><br><span class="line"></span><br><span class="line">docker container port xxx (name)</span><br><span class="line"></span><br><span class="line">docker container inspect --format <span class="string">&#x27;&#123;&#123;.NetworkSettings.IPAddress &#125;&#125;&#x27;</span> xxx (name)</span><br><span class="line"><span class="comment"># a common option for formatting the output of commands using &quot;Go templates&quot;</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="Network"><a href="#Network" class="headerlink" title="Network"></a>Network</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">docker network <span class="built_in">ls</span></span><br><span class="line"><span class="comment"># List all docker networks</span></span><br><span class="line">docker network <span class="built_in">ls</span> --network bridge </span><br><span class="line"><span class="comment"># default docker virtual network, which is NAT&quot;ed behind the Host IP</span></span><br><span class="line">docker network <span class="built_in">ls</span> --network host</span><br><span class="line"><span class="comment"># It gains performance by skipping virtual machine but sacrifices security of container model</span></span><br><span class="line"></span><br><span class="line">docker entwork <span class="built_in">ls</span> --network none</span><br><span class="line"><span class="comment"># removes eth0 and only leaves you with localhost interface in container</span></span><br><span class="line"></span><br><span class="line">docker network inspect</span><br><span class="line">docker network create --driver xxx</span><br><span class="line"><span class="comment"># Spawns a new virtual network for you to attach containers to</span></span><br><span class="line"></span><br><span class="line">docker container run ... --network xxx</span><br><span class="line"></span><br><span class="line">docker network connect xxx(network) xxx(container)</span><br><span class="line"></span><br><span class="line">docker network disconnect</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="Docker-Network-DNS"><a href="#Docker-Network-DNS" class="headerlink" title="Docker Network DNS"></a>Docker Network DNS</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker container <span class="built_in">exec</span> -it my_nginx ping old_ngingx (name of other container)</span><br><span class="line"><span class="comment"># Assignment: Round Robin Test</span></span><br><span class="line"></span><br><span class="line">docker image <span class="built_in">history</span> nginx:latest</span><br><span class="line"><span class="comment"># show layers of changes made in image </span></span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker pull</span><br><span class="line">docker login</span><br><span class="line">docker tag</span><br><span class="line">docker push</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="PRUNE"><a href="#PRUNE" class="headerlink" title="PRUNE"></a>PRUNE</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">docker system <span class="built_in">df</span> </span><br><span class="line"><span class="comment"># see space usage</span></span><br><span class="line"></span><br><span class="line">docker system prune</span><br><span class="line"><span class="comment"># clean up everything you&quot;re not currently using</span></span><br><span class="line"></span><br><span class="line">docker image prune -a</span><br><span class="line"><span class="comment"># remove all iamges you&#x27;re not using</span></span><br><span class="line"></span><br><span class="line">docker image prune</span><br><span class="line"><span class="comment"># clean up just &quot;dangling&quot; images</span></span><br></pre></td></tr></table></figure>
+                <p>Docker is an open platform for developing, shipping, and running applications. It simplifies the process of building, running, managing, and distributing software by virtualizing the operating system of the host computer. </p>
             </div>
             <!-- read more -->
             
@@ -524,16 +491,7 @@
                 <span class="abstract-title-text">Terraform</span>
             </a>
             <div class="abstract-content">
-                <h1 id="Basic-Commands"><a href="#Basic-Commands" class="headerlink" title="Basic Commands"></a>Basic Commands</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">terraform init</span><br><span class="line"></span><br><span class="line">terraform apply <span class="comment"># always apply the files</span></span><br><span class="line"></span><br><span class="line">terraform destroy -target xxx.xxx</span><br><span class="line"></span><br><span class="line">terraform apply -auto-approve</span><br><span class="line"></span><br><span class="line">terraform destroy</span><br></pre></td></tr></table></figure>
-
-<h1 id="Terraform-State"><a href="#Terraform-State" class="headerlink" title="Terraform State"></a>Terraform State</h1><p>tfstate file</p>
-<p>Pass a variable</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">terraform apply</span><br><span class="line"></span><br><span class="line">terraform apply -var <span class="string">&quot;xxx=xxx&quot;</span></span><br><span class="line"></span><br><span class="line">terraform apply -var-file terraform-dev.tfvars</span><br></pre></td></tr></table></figure>
-
-<h1 id="Set-credentials"><a href="#Set-credentials" class="headerlink" title="Set credentials"></a>Set credentials</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> AWS_SECERT_ACCESS=xxx</span><br><span class="line">​</span><br><span class="line"><span class="built_in">export</span> AWS_ACCESS_ID=xxx</span><br></pre></td></tr></table></figure>
-
-<p>or use aws configure command</p>
-<p>global variable</p>
+                <p>Terraform is an infrastructure as code (IaC) tool that enables developers to define cloud and on-premises resources using human-readable configuration files. With Terraform, you can build, modify, and version your infrastructure efficiently.</p>
             </div>
             <!-- read more -->
             
@@ -553,6 +511,7 @@
         
         
             
+            
         
         <article class="index-post">
             <a class="abstract-title" href="/hexo/2024/03/07/Ansible/">
@@ -560,13 +519,13 @@
                 <span class="abstract-title-text">Ansible</span>
             </a>
             <div class="abstract-content">
-                
+                <p>Ansible is an open-source IT automation engine that enables infrastructure as code. It provides a suite of software tools for provisioning, configuration management, and application deployment. Originally developed by Michael DeHaan in 2012, Ansible was later acquired by Red Hat. Unlike some other configuration management tools, Ansible follows an agentless architecture, meaning it doesn’t require software installation on the controlled nodes. Instead, it relies on temporary remote connections via SSH or Windows Remote Management. Ansible’s inventory is stored in plain text files and can be dynamically sourced from cloud-based formats like YAML or INI. It’s widely used for automating tasks across Unix-like systems and Microsoft Windows.</p>
             </div>
             <!-- read more -->
             
             <div class="abstract-post-meta">
                 <!-- date -->
-                <div class="abstract-date" title="Last updated: 2024/03/07">
+                <div class="abstract-date" title="Last updated: 2024/05/22">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2024/03/07</span>
                 </div>
                 <!-- tags -->
@@ -580,6 +539,7 @@
         
         
             
+            
         
         <article class="index-post">
             <a class="abstract-title" href="/hexo/2024/03/07/AWS/">
@@ -587,13 +547,22 @@
                 <span class="abstract-title-text">AWS</span>
             </a>
             <div class="abstract-content">
-                
+                <p>Amazon Web Services (AWS) is the world’s most comprehensive and broadly adopted cloud platform. It offers over 200 fully featured services, available from data centers globally. Here are some key points about AWS:</p>
+<ul>
+<li>Compute Services: AWS Elastic Compute Cloud (EC2) allows developers to build, deploy, and scale applications in the cloud. EC2 instances provide virtual servers with flexible configurations.</li>
+<li>Storage: AWS provides various storage services, including Amazon S3 for web data storage and Amazon EBS for block storage. These services offer scalability, durability, and low-latency access.</li>
+<li>Databases: AWS offers managed database services like Amazon RDS (Relational Database Service) and Amazon DynamoDB (NoSQL database). These services are cost-efficient, secure, and scalable.</li>
+<li>Networking and Content Delivery: AWS provides Virtual Private Cloud (VPC) for network isolation, Amazon CloudFront for content delivery, and Route 53 for domain management.</li>
+<li>Developer Tools: AWS offers tools like AWS Lambda (serverless computing), Amazon CodeDeploy (deployment automation), and Amazon CloudWatch (monitoring and logging).</li>
+<li>Security and Compliance: AWS is architected for security, with over 300 security, compliance, and governance services. It supports 143 security standards and certifications.</li>
+<li>Innovation: AWS continually introduces new technologies, such as serverless computing and machine learning services like Amazon SageMaker.</li>
+</ul>
             </div>
             <!-- read more -->
             
             <div class="abstract-post-meta">
                 <!-- date -->
-                <div class="abstract-date" title="Last updated: 2024/03/07">
+                <div class="abstract-date" title="Last updated: 2024/05/22">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2024/03/07</span>
                 </div>
                 <!-- tags -->
@@ -615,19 +584,7 @@
                 <span class="abstract-title-text">Kafka Zookeeper</span>
             </a>
             <div class="abstract-content">
-                <h1 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h1><h2 id="Installing-Kafka"><a href="#Installing-Kafka" class="headerlink" title="Installing Kafka"></a><strong>Installing Kafka</strong></h2><p>After successfully installing Homebrew, we can proceed with the installation of Kafka. To do this, execute the command provided below in the terminal. This command will automatically install the correct version of JDK required for running Kafka.</p>
-<p>The installation path for Homebrew may vary depending on the chip being used. For Macs with Intel, Kafka will be installed under <code>/usr/local/</code>, while for Macs with Apple silicon, it will be installed under <code>opt/homebrew/</code>.</p>
-<ul>
-<li>Binaries and scripts will be in <code>/usr/local/bin</code> or <code>opt/homebrew/bin</code></li>
-<li>Kafka configurations will be in <code>/usr/local/etc/kafka</code> or <code>opt/homebrew/etc/kafka</code></li>
-<li>Zookeeper configuration will be in <code>/usr/local/etc/zookeeper</code> or <code>opt/homebrew/etc/zookeeper</code></li>
-<li>The <code>log.dirs</code> config (the location for Kafka data) will be set to <code>/usr/local/var/lib/kafka-logs </code>or <code>opt/homebrew/var/lib/kafka-logs</code></li>
-</ul>
-<h2 id="Starting-Kafka"><a href="#Starting-Kafka" class="headerlink" title="Starting Kafka"></a><strong>Starting Kafka</strong></h2><p>Starting services is a breeze with Homebrew. To start Kafka, run <code>brew services start kafka</code> in the terminal. This will launch Kafka on port 9092. For more information on this service, run <code>brew services info kafka</code>, or to check port usage, run <code>lsof -i:9092</code> in the terminal window.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">zookeeper-server-start /usr/local/etc/kafka/zookeeper.properties</span><br><span class="line"></span><br><span class="line">kafka-server-start /usr/local/etc/kafka/server.properties</span><br></pre></td></tr></table></figure>
-
-<p>Great job! You have successfully launched Kafka on your computer. With Brew, Zookeeper will be automatically managed.</p>
-<p>You can now create a topic with some partitions, set up a producer, and send messages to the consumers.</p>
+                <p>Kafka is a distributed streaming platform designed for handling real-time data streams and building data pipelines.<br>ZooKeeper is a centralized service that provides distributed coordination and maintains configuration information.  </p>
             </div>
             <!-- read more -->
             
@@ -655,21 +612,13 @@
                 <span class="abstract-title-text">WSL usage</span>
             </a>
             <div class="abstract-content">
-                <p>WSL Usgae</p>
-<ol>
-<li><code>wsl --status</code> Show the status of Windows Subsystem for Linux</li>
-<li><code>wsl --list --online</code> For a list of valid distributions</li>
-<li><code>wsl --install -d Ubuntu22.04</code> Install addtional Windows Subsystem for Linux Distributions</li>
-<li><code>wsl --distribution UBuntu-22.04 --user ubuntu</code> Run the specified distribution as the specified user</li>
-<li><code>wsl --terminate Ubuntu22.04</code> Terminate the specified distribution</li>
-</ol>
-
+                <p>Windows Subsystem for Linux (WSL) is a feature of Windows 10 that bridges the gap between Windows and Linux environments. With WSL, you can run native Linux command-line tools directly on your Windows machine without the need for a separate virtual machine or dual booting. It provides a seamless experience for developers who want to work with both Windows and Linux simultaneously. </p>
             </div>
             <!-- read more -->
             
             <div class="abstract-post-meta">
                 <!-- date -->
-                <div class="abstract-date" title="Last updated: 2024/03/07">
+                <div class="abstract-date" title="Last updated: 2024/05/22">
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2024/03/07</span>
                 </div>
                 <!-- tags -->
@@ -866,12 +815,6 @@
         
         
     
-        
-        
-        
-        
-        
-        
         
         
         
